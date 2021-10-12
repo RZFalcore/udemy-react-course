@@ -29,12 +29,7 @@ function App() {
     <div>
       <h2>Let's get started!</h2>
       {expenses.map(({ id, title, amount, date }) => (
-        <ExpenseItem
-          key={id}
-          title={title}
-          amount={amount}
-          date={date.toUTCString()}
-        />
+        <ExpenseItem key={id} title={title} amount={amount} date={date} />
       ))}
     </div>
   );
