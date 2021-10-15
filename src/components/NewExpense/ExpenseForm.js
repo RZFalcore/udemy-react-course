@@ -6,7 +6,9 @@ const ExpenseForm = () => {
   const [expense, setExpense] = useState({ title: "", amount: "", date: "" });
 
   const inputChangeHandler = (e) => {
-    setExpense({ ...expense, [e.target.name]: e.target.value });
+    setExpense((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
   };
 
   return (
