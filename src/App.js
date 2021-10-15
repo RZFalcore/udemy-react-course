@@ -28,7 +28,7 @@ function App() {
   const [expenses, setExpenses] = useState(defaultExpenses);
 
   const addExpenseHandler = (newExpense) => {
-    newExpense.id = new Date();
+    newExpense.id = Date.now();
     setExpenses((prevState) => {
       return [...prevState, newExpense];
     });
