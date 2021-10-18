@@ -14,9 +14,15 @@ const Expenses = ({ expenses }) => {
     <div>
       <ExpensesFilter selectedFilter={filter} setFilter={setFilter} />
       <Card className="expenses">
-        {filteredExpenses.map(({ id, title, amount, date }) => (
-          <ExpenseItem key={id} title={title} amount={amount} date={date} />
-        ))}
+        {filteredExpenses.length ? (
+          filteredExpenses.map(({ id, title, amount, date }) => (
+            <ExpenseItem key={id} title={title} amount={amount} date={date} />
+          ))
+        ) : (
+          <h2 style={{ color: "white", textAlign: "center" }}>
+            No expenses found!
+          </h2>
+        )}
       </Card>
     </div>
   );
