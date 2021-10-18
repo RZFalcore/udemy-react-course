@@ -1,7 +1,7 @@
 import React from "react";
 import "./ChartBar.css";
 
-const ChartBar = ({ id, value, maxValue, label }) => {
+const ChartBar = ({ value, maxValue, label }) => {
   const barFillHeight =
     maxValue > 0 ? Math.round((value / maxValue) * 100) + "%" : "0%";
   return (
