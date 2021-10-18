@@ -18,6 +18,7 @@ const ExpenseForm = ({ addExpense, hideForm }) => {
     console.log(newExpense);
     addExpense(newExpense);
     setExpense({ title: "", amount: "", date: "" });
+    hideForm();
   };
 
   return (
