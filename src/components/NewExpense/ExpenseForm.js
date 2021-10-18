@@ -14,8 +14,11 @@ const ExpenseForm = ({ addExpense, hideForm }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newExpense = { ...expense, date: new Date(expense.date) };
-    console.log(newExpense);
+    const newExpense = {
+      title: expense.title,
+      amount: +expense.amount,
+      date: new Date(expense.date),
+    };
     addExpense(newExpense);
     setExpense({ title: "", amount: "", date: "" });
     hideForm();
