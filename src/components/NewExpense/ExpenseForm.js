@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 
-const ExpenseForm = ({ addExpense }) => {
+const ExpenseForm = ({ addExpense, hideForm }) => {
   const [expense, setExpense] = useState({ title: "", amount: "", date: "" });
 
   const inputChangeHandler = (e) => {
@@ -56,6 +56,9 @@ const ExpenseForm = ({ addExpense }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={hideForm}>
+          Cancel
+        </button>
         <button type="submit">Add expence</button>
       </div>
     </form>
