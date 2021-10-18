@@ -30,7 +30,7 @@ function App() {
   const addExpenseHandler = (newExpense) => {
     newExpense.id = Date.now();
     setExpenses((prevState) => {
-      return [...prevState, newExpense];
+      return [newExpense, ...prevState];
     });
   };
 

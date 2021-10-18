@@ -7,12 +7,14 @@ import "./Expenses.css";
 
 const Expenses = ({ expenses }) => {
   const [filter, setFilter] = useState("2021");
-  console.log(filter);
+  const filteredExpenses = expenses.filter(
+    ({ date }) => date.getFullYear() === parseInt(filter, 10)
+  );
   return (
     <div>
       <ExpensesFilter selectedFilter={filter} setFilter={setFilter} />
       <Card className="expenses">
-        {expenses.map(({ id, title, amount, date }) => (
+        {filteredExpenses.map(({ id, title, amount, date }) => (
           <ExpenseItem key={id} title={title} amount={amount} date={date} />
         ))}
       </Card>
