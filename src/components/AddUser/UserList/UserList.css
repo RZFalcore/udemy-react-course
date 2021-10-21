@@ -1,0 +1,16 @@
+.userListWrapper {
+    width: 70%;
+    background-color: white;
+    margin: 40px auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+}
+
+.userList {
+    list-style: none;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+}
