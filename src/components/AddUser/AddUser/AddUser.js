@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddUser.css";
 
-const AddUser = ({ addUser }) => {
+const AddUser = ({ addUser, setError }) => {
   const [user, setUser] = useState({ id: null, user: "", age: "" });
 
   const inputHandler = (e) => {
@@ -12,6 +12,13 @@ const AddUser = ({ addUser }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (user.user.trim().length === 0 || user.age <= 0) {
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age.",
+      });
+      return;
+    }
     addUser(user);
     setUser({ id: null, user: "", age: "" });
   };

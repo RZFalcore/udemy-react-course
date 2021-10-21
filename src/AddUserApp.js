@@ -5,15 +5,27 @@ import Modal from "./components/AddUser/Modal/Modal";
 
 const AddUserApp = () => {
   const [userList, setUserList] = useState([]);
+  const [error, setError] = useState();
 
   const addUserHandler = (newUser) => {
     newUser.id = Math.random() * 1000;
     setUserList((prevState) => [...prevState, newUser]);
   };
 
+  const closeModalHandler = () => {
+    setError(null);
+  };
+
   return (
     <div>
-      <AddUser addUser={addUserHandler} />
+      {error && (
+        <Modal
+          title={error.title}
+          message={error.message}
+          closeModal={closeModalHandler}
+        />
+      )}
+      <AddUser addUser={addUserHandler} setError={setError} />
       {userList.length && <UserList users={userList} />}
     </div>
   );
