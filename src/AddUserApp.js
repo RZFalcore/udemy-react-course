@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddUser from "./components/AddUser/AddUser/AddUser";
 import UserList from "./components/AddUser/UserList/UserList";
+import Modal from "./components/AddUser/Modal/Modal";
 
 const AddUserApp = () => {
   const [userList, setUserList] = useState([]);
