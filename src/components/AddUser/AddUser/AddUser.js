@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Wrapper from "../Helpers/Wrapper";
 import "./AddUser.css";
 
 const AddUser = ({ addUser, setError }) => {
@@ -24,31 +25,33 @@ const AddUser = ({ addUser, setError }) => {
   };
 
   return (
-    <form className="addUserForm" onSubmit={submitHandler}>
-      <div className="addUserContainer">
-        <label>User name</label>
-        <input
-          className="addUserInput"
-          name="user"
-          type="text"
-          onChange={inputHandler}
-          value={user.user}
-        />
-      </div>
-      <div className="addUserContainer">
-        <label>Age (years)</label>
-        <input
-          className="addUserInput"
-          name="age"
-          type="number"
-          onChange={inputHandler}
-          value={user.age}
-        />
-        <button type="submit" className="addUserSubmit">
-          Add user
-        </button>
-      </div>
-    </form>
+    <Wrapper>
+      <form className="addUserForm" onSubmit={submitHandler}>
+        <div className="addUserContainer">
+          <label>User name</label>
+          <input
+            className="addUserInput"
+            name="user"
+            type="text"
+            onChange={inputHandler}
+            value={user.user}
+          />
+        </div>
+        <div className="addUserContainer">
+          <label>Age (years)</label>
+          <input
+            className="addUserInput"
+            name="age"
+            type="number"
+            onChange={inputHandler}
+            value={user.age}
+          />
+          <button type="submit" className="addUserSubmit">
+            Add user
+          </button>
+        </div>
+      </form>
+    </Wrapper>
   );
 };
 
