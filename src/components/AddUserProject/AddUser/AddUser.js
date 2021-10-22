@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-// import Wrapper from "../Helpers/Wrapper";
+import React, { useRef } from "react";
 import "./AddUser.css";
 
 const AddUser = ({ addUser, setError }) => {

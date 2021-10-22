@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import AddUser from "./components/AddUser/AddUser/AddUser";
-import UserList from "./components/AddUser/UserList/UserList";
-import Modal from "./components/AddUser/Modal/Modal";
-import Wrapper from "./components/AddUser/Helpers/Wrapper";
+import AddUser from "./components/AddUserProject/AddUser/AddUser";
+import UserList from "./components/AddUserProject/UserList/UserList";
+import Modal from "./components/AddUserProject/Modal/Modal";
+import Wrapper from "./components/AddUserProject/Helpers/Wrapper";
 
 const AddUserApp = () => {
   const [userList, setUserList] = useState([]);

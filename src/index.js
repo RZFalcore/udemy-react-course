@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // import ExpensesApp from "./ExpensesApp";
-import AddUserApp from "./AddUserApp";
+// import AddUserApp from "./AddUserApp";
+import LoginPageApp from "./LoginPageApp";
 
 import "./index.css";
 
-ReactDOM.render(<AddUserApp />, document.getElementById("root"));
+ReactDOM.render(<LoginPageApp />, document.getElementById("root"));
