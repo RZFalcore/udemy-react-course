@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Wrapper from "../Helpers/Wrapper";
+// import Wrapper from "../Helpers/Wrapper";
 import "./AddUser.css";
 
 const AddUser = ({ addUser, setError }) => {
@@ -25,7 +25,7 @@ const AddUser = ({ addUser, setError }) => {
   };
 
   return (
-    <Wrapper>
+    <React.Fragment>
       <form className="addUserForm" onSubmit={submitHandler}>
         <div className="addUserContainer">
           <label>User name</label>
@@ -51,7 +51,7 @@ const AddUser = ({ addUser, setError }) => {
           </button>
         </div>
       </form>
-    </Wrapper>
+    </React.Fragment>
   );
 };
 
