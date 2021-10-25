@@ -32,8 +32,8 @@ const formReducer = (state, { type, payload }) => {
           isValid: state.password.value.trim().length > 6,
         },
       };
-    case "FORM_IS_VALID":
-      return { ...state, formIsValid: payload };
+    // case "FORM_IS_VALID":
+    //   return { ...state, formIsValid: payload };
     default:
       return state;
   }
@@ -44,7 +44,7 @@ const Login = (props) => {
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState("");
   // const [passwordIsValid, setPasswordIsValid] = useState();
-  // const [formIsValid, setFormIsValid] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
 
   const [loginForm, loginFormDispatch] = useReducer(formReducer, {
     email: {
@@ -55,20 +55,19 @@ const Login = (props) => {
       value: "",
       isValid: false,
     },
-    formIsValid: false,
   });
+
+  const { isValid: isEmailValid } = loginForm.email;
+  const { isValid: isPasswordValid } = loginForm.password;
 
   useEffect(() => {
     const debouncer = setTimeout(() => {
-      loginFormDispatch({
-        type: "FORM_IS_VALID",
-        payload: loginForm.email.isValid && loginForm.password.isValid,
-      });
+      setFormIsValid(isEmailValid && isPasswordValid);
     }, 500);
     return () => {
       clearTimeout(debouncer);
     };
-  }, [loginForm.email.isValid, loginForm.password.isValid]);
+  }, [isEmailValid, isPasswordValid]);
 
   const emailChangeHandler = (event) => {
     loginFormDispatch({ type: "EMAIL_INPUT", payload: event.target.value });
@@ -92,8 +91,6 @@ const Login = (props) => {
     event.preventDefault();
     props.onLogin(loginForm.email.value, loginForm.password.value);
   };
-
-  console.log(loginForm);
 
   return (
     <Card className={classes.login}>
@@ -127,11 +124,7 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button
-            type="submit"
-            className={classes.btn}
-            disabled={!loginForm.formIsValid}
-          >
+          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Login
           </Button>
         </div>
