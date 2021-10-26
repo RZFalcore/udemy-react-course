@@ -1,51 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
-
+import React, { useEffect, useReducer } from "react";
 import Card from "../UI/Card/Card";
-import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
-
-const formReducer = (state, { type, payload }) => {
-  switch (type) {
-    case "EMAIL_INPUT":
-      return {
-        ...state,
-        email: { value: payload, isValid: payload.includes("@") },
-      };
-    case "PASSWORD_INPUT":
-      return {
-        ...state,
-        password: { value: payload, isValid: payload.trim().length > 6 },
-      };
-    case "ON_BLUR_EMAIL":
-      return {
-        ...state,
-        email: {
-          value: state.email.value,
-          isValid: state.email.value.includes("@"),
-        },
-      };
-    case "ON_BLUR_PASSWORD":
-      return {
-        ...state,
-        password: {
-          value: state.password.value,
-          isValid: state.password.value.trim().length > 6,
-        },
-      };
-    // case "FORM_IS_VALID":
-    //   return { ...state, formIsValid: payload };
-    default:
-      return state;
-  }
-};
+import formReducer from "./LoginReducer";
+import classes from "./Login.module.css";
 
 const Login = (props) => {
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [emailIsValid, setEmailIsValid] = useState();
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  // const [passwordIsValid, setPasswordIsValid] = useState();
-  const [formIsValid, setFormIsValid] = useState(false);
-
   const [loginForm, loginFormDispatch] = useReducer(formReducer, {
     email: {
       value: "",
@@ -55,6 +14,7 @@ const Login = (props) => {
       value: "",
       isValid: false,
     },
+    formIsValid: false,
   });
 
   const { isValid: isEmailValid } = loginForm.email;
@@ -62,8 +22,8 @@ const Login = (props) => {
 
   useEffect(() => {
     const debouncer = setTimeout(() => {
-      setFormIsValid(isEmailValid && isPasswordValid);
-    }, 500);
+      formValidationHandler(isEmailValid, isPasswordValid);
+    }, 300);
     return () => {
       clearTimeout(debouncer);
     };
@@ -78,13 +38,15 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
-    // setEmailIsValid(enteredEmail.includes("@"));
     loginFormDispatch({ type: "ON_BLUR_EMAIL" });
   };
 
   const validatePasswordHandler = () => {
-    // setPasswordIsValid(enteredPassword.trim().length > 6);
     loginFormDispatch({ type: "ON_BLUR_PASSWORD" });
+  };
+
+  const formValidationHandler = () => {
+    loginFormDispatch({ type: "FORM_IS_VALID" });
   };
 
   const submitHandler = (event) => {
@@ -124,7 +86,11 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button
+            type="submit"
+            className={classes.btn}
+            disabled={!loginForm.formIsValid}
+          >
             Login
           </Button>
         </div>
