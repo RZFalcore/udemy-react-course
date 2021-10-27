@@ -3,6 +3,7 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import formReducer from "./LoginReducer";
 import classes from "./Login.module.css";
+import Input from "../UI/Input/Input";
 
 const Login = (props) => {
   const [loginForm, loginFormDispatch] = useReducer(formReducer, {
@@ -57,7 +58,15 @@ const Login = (props) => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        <Input
+          isValid={loginForm.email.isValid}
+          label="E-Mail"
+          type="email"
+          value={loginForm.email.value}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        />
+        {/* <div
           className={`${classes.control} ${
             loginForm.email.isValid === false ? classes.invalid : ""
           }`}
@@ -70,8 +79,16 @@ const Login = (props) => {
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
-        <div
+        </div> */}
+        <Input
+          isValid={loginForm.password.isValid}
+          label="Password"
+          type="password"
+          value={loginForm.password.value}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
+        {/* <div
           className={`${classes.control} ${
             loginForm.password.isValid === false ? classes.invalid : ""
           }`}
@@ -84,7 +101,7 @@ const Login = (props) => {
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
-        </div>
+        </div> */}
         <div className={classes.actions}>
           <Button
             type="submit"
