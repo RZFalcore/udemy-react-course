@@ -2,10 +2,11 @@ import React from "react";
 import classes from "./Input.module.css";
 
 const Input = ({
-  isValid,
+  id,
   label = "E-Mail",
   type = "email",
   value,
+  isValid,
   onChange,
   onBlur,
 }) => {
@@ -15,10 +16,10 @@ const Input = ({
         isValid === false ? classes.invalid : ""
       }`}
     >
-      <label htmlFor={type}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
         type={type}
-        id={type}
+        id={id}
         value={value}
         onChange={onChange}
         onBlur={onBlur}

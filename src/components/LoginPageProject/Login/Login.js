@@ -59,49 +59,23 @@ const Login = (props) => {
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
-          isValid={loginForm.email.isValid}
+          id="email"
           label="E-Mail"
           type="email"
           value={loginForm.email.value}
+          isValid={loginForm.email.isValid}
           onChange={emailChangeHandler}
           onBlur={validateEmailHandler}
         />
-        {/* <div
-          className={`${classes.control} ${
-            loginForm.email.isValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
-            id="email"
-            value={loginForm.email.value}
-            onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
-          />
-        </div> */}
         <Input
-          isValid={loginForm.password.isValid}
+          id="password"
           label="Password"
           type="password"
           value={loginForm.password.value}
+          isValid={loginForm.password.isValid}
           onChange={passwordChangeHandler}
           onBlur={validatePasswordHandler}
         />
-        {/* <div
-          className={`${classes.control} ${
-            loginForm.password.isValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={loginForm.password.value}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
-        </div> */}
         <div className={classes.actions}>
           <Button
             type="submit"
