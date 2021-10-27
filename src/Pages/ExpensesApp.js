@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Expenses from "./components/ExpensesProject/Expenses/Expenses";
-import NewExpence from "./components/ExpensesProject/NewExpense/NewExpense";
+import Expenses from "../components/ExpensesProject/Expenses/Expenses";
+import NewExpence from "../components/ExpensesProject/NewExpense/NewExpense";
 
 const defaultExpenses = [
   {
