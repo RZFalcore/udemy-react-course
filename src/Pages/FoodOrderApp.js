@@ -1,7 +1,8 @@
 import React from "react";
+import Header from "../components/FoodOrderProject/Layout/Header";
 
 const FoodOrderApp = () => {
-  return <h1>Food Order</h1>;
+  return <Header />;
 };
 
 export default FoodOrderApp;
