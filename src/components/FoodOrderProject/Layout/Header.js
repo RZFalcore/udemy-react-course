@@ -1,4 +1,5 @@
 import React from "react";
+import HeaderButton from "../UI/HeaderButton";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -6,6 +7,7 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <h1>MealsOrder</h1>
+        <HeaderButton />
       </header>
       <div className={styles.mainImage}>
         <img
