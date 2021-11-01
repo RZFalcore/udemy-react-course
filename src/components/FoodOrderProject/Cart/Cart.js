@@ -1,4 +1,6 @@
 import React from "react";
+import Modal from "../UI/Modal";
+
 import styles from "./Cart.module.css";
 
 const Cart = () => {
@@ -6,7 +8,7 @@ const Cart = () => {
     (item) => <li>{item.name}</li>
   );
   return (
-    <div>
+    <Modal>
       <ul className={styles.cartItems}>{cartItems}</ul>
       <div>
         <span>Total amount</span>
@@ -16,7 +18,7 @@ const Cart = () => {
         <button className={styles.buttonAlt}>Close</button>
         <button className={styles.buttin}>Order</button>
       </div>
-    </div>
+    </Modal>
   );
 };
 
