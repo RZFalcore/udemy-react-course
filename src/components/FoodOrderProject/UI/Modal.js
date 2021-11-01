@@ -4,19 +4,19 @@ import styles from "./Modal.module.css";
 
 const portalElement = document.getElementById("backdrop-root");
 
-const ModalMarkup = ({ closeModal, children }) => {
+const ModalMarkup = ({ onCloseModal, children }) => {
   return (
-    <div className={styles.backdrop} onClick={closeModal}>
+    <div className={styles.backdrop} onClick={onCloseModal}>
       <div className={styles.modal}>{children}</div>
     </div>
   );
 };
 
-const Modal = ({ closeModal, children }) => {
+const Modal = ({ onCloseModal, children }) => {
   return (
     <React.Fragment>
       {ReactDOM.createPortal(
-        <ModalMarkup closeModal={closeModal}>{children}</ModalMarkup>,
+        <ModalMarkup onCloseModal={onCloseModal}>{children}</ModalMarkup>,
         portalElement
       )}
     </React.Fragment>

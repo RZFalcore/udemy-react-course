@@ -10,14 +10,15 @@ const FoodOrderApp = () => {
     setCartModalIsOpen(true);
   };
 
-  const closeCart = () => {
+  const closeCart = (e) => {
+    console.log(e.target);
     setCartModalIsOpen(false);
   };
 
   return (
     <>
-      <Header openModal={openCart} />
-      {cartModalIsOpen && <Cart closeModal={closeCart} />}
+      <Header onOpenModal={openCart} />
+      {cartModalIsOpen && <Cart onCloseModal={closeCart} />}
       <main>
         <Meals />
       </main>
