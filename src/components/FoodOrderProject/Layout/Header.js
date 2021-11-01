@@ -2,12 +2,12 @@ import React from "react";
 import HeaderButton from "../UI/HeaderButton";
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = ({ openModal }) => {
   return (
     <>
       <header className={styles.header}>
         <h1>MealsOrder</h1>
-        <HeaderButton />
+        <HeaderButton openModal={openModal} />
       </header>
       <div className={styles.mainImage}>
         <img

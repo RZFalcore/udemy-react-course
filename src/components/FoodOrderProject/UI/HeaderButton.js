@@ -2,9 +2,9 @@ import React from "react";
 import CartIcon from "./CartIcon";
 import styles from "./HeaderButton.module.css";
 
-const Button = () => {
+const Button = ({ openModal }) => {
   return (
-    <button className={styles.button}>
+    <button className={styles.button} onClick={openModal}>
       <span className={styles.icon}>
         <CartIcon />
       </span>
