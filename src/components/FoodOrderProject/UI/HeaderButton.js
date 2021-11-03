@@ -23,9 +23,10 @@ const Button = ({ onOpenModal }) => {
     };
   }, [items]);
 
-  const cartQuantity = context.items.reduce((current, item) => {
-    return current + item.amount;
-  }, 0);
+  const cartQuantity = context.items.reduce(
+    (current, item) => current + item.amount,
+    0
+  );
 
   return (
     <button className={btnStyles} onClick={onOpenModal}>
