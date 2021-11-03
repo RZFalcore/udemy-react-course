@@ -29,7 +29,7 @@ const Cart = ({ onCloseModal }) => {
   return (
     <Modal onCloseModal={onCloseModal}>
       <ul className={styles.cartItems}>{cartItems}</ul>
-      <div>
+      <div className={styles.total}>
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
