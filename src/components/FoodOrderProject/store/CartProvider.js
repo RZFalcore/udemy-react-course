@@ -24,10 +24,12 @@ const CartProvider = ({ children }) => {
     dispatch({ type: "ADD_ITEM", payload: item });
   };
 
-  const removeCartItemHandler = (id) => {};
+  const removeCartItemHandler = (id) => {
+    dispatch({ type: "REMOVE_ITEM", payload: id });
+  };
 
   const cartContext = {
-    ...defautlCart,
+    ...cartState,
     addItem: addCartItemHandeler,
     removeItem: removeCartItemHandler,
   };
