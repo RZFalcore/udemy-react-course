@@ -6,10 +6,20 @@ const defautlCart = { items: [], totalAmount: 0 };
 const cartReducer = (state, { type, payload }) => {
   switch (type) {
     case "ADD_ITEM":
-      return {
-        items: [...state.items, payload],
+      const updatedCart = {
+        items: [...state.items],
         totalAmount: state.totalAmount + payload.price * payload.amount,
       };
+      
+      const isExisted = state.items.find((item) => item.id === payload.id);
+
+      if (isExisted) {
+        const itemIndex = state.items.indexOf(isExisted);
+        updatedCart.items[itemIndex].amount += payload.amount;
+      } else {
+        updatedCart.items.push(payload);
+      }
+      return updatedCart;
     case "REMOVE_ITEM":
       return { ...state };
     default:
