@@ -7,7 +7,9 @@ const portalElement = document.getElementById("backdrop-root");
 const ModalMarkup = ({ onCloseModal, children }) => {
   return (
     <div className={styles.backdrop} onClick={onCloseModal}>
-      <div className={styles.modal}>{children}</div>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 };

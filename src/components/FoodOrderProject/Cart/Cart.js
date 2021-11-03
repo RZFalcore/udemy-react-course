@@ -11,15 +11,19 @@ const Cart = ({ onCloseModal }) => {
   const cartHasItems = cartCtx.items.length > 0;
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
 
-  const addCartItemHandler = (item) => {};
-  const removeCartItemHandler = (id) => {};
+  const addCartItemHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
+  const removeCartItemHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
   const cartItems = cartCtx.items.map((item) => (
     <CartItem
       key={item.id}
       {...item}
-      onAdd={addCartItemHandler.bind(null, item.id)}
-      onRemove={removeCartItemHandler.bind(null, item)}
+      onAdd={addCartItemHandler.bind(null, item)}
+      onRemove={removeCartItemHandler.bind(null, item.id)}
     />
   ));
   return (

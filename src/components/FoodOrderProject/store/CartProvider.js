@@ -10,7 +10,7 @@ const cartReducer = (state, { type, payload }) => {
         items: [...state.items],
         totalAmount: state.totalAmount + payload.price * payload.amount,
       };
-      
+
       const isExisted = state.items.find((item) => item.id === payload.id);
 
       if (isExisted) {
@@ -20,8 +20,32 @@ const cartReducer = (state, { type, payload }) => {
         updatedCart.items.push(payload);
       }
       return updatedCart;
+
     case "REMOVE_ITEM":
-      return { ...state };
+      console.log(payload)
+      const existedItem = state.items.find((item) => item.id === payload);
+      console.log(existedItem)
+      const newCart = {...state};
+      
+      if (existedItem.amount === 1) newCart.items = state.items.filter(item => item.id !== payload);
+      
+      if (existedItem.amount > 1) {
+        const itemIndex = newCart.items.indexOf(existedItem);
+        newCart.items[itemIndex].amount -= 1;
+      }
+        
+      newCart.totalAmount = state.totalAmount - existedItem.amount;
+      // const itemIndex = state.items.indexOf(existedItem);
+
+        // const amountOfExistedItem = newCart.items[itemIndex].amount;
+
+        // amountOfExistedItem > 1
+        //   ? (newCart.items[itemIndex].amount -= 1)
+        //   : newCart.items.filter((item) => item.id !== payload);
+
+        // newCart.totalAmount = state.totalAmount -= existedItem.price;
+      return newCart;
+
     default:
       return state;
   }
