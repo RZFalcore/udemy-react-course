@@ -12,7 +12,6 @@ const FoodOrderApp = () => {
   };
 
   const closeCart = (e) => {
-    console.log(e.target);
     setCartModalIsOpen(false);
   };
 
