@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DemoOutput from "../components/OptimizationProject/Demo/DemoOutput";
 import Button from "../components/OptimizationProject/UI/Button";
 import styles from "./OptimizationApp.module.css";
 
@@ -11,10 +12,9 @@ const OptimizationApp = () => {
   return (
     <div className={styles.app}>
       <h1>Hello there!</h1>
-      {showParagraph && <p>New paragraph.</p>}
+      <DemoOutput show={showParagraph} />
       <Button onClick={toggleParagraphHanlder}>
-        {/* {showParagraph ? "Hide" : "Show"} button! */}
-        Toggle button!
+        {showParagraph ? "Hide" : "Show"} text
       </Button>
     </div>
   );
