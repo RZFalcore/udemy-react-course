@@ -5,4 +5,4 @@ const DemoOutput = ({ show }) => {
   return <p>{show ? "New paragraph." : ""}</p>;
 };
 
-export default DemoOutput;
+export default React.memo(DemoOutput);
