@@ -1,10 +1,10 @@
 import React from "react";
-import Users from "../components/ClassComponents/Users";
+import UsersFinder from "../components/ClassComponents/UserFinder";
 
 const ClassComponentsApp = () => {
   return (
     <>
-      <Users />
+      <UsersFinder />
     </>
   );
 };
