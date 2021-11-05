@@ -3,12 +3,13 @@ import React from "react";
 // import AddUserApp from "./Pages/AddUserApp";
 // import LoginPageApp from "./Pages/LoginPageApp";
 // import FoodOrder from "./Pages/FoodOrderApp";
-import OptimizationApp from './Pages/OptimizationApp';
+// import OptimizationApp from './Pages/OptimizationApp';
+import ClassComponentsApp from './Pages/ClassComponentsApp';
 
 function App() {
   return (
     <div>
-      <OptimizationApp />
+      <ClassComponentsApp />
     </div>
   );
 }
