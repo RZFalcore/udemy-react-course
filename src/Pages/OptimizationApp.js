@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import DemoOutput from "../components/OptimizationProject/Demo/DemoOutput";
 import Button from "../components/OptimizationProject/UI/Button";
 import styles from "./OptimizationApp.module.css";
@@ -7,11 +7,8 @@ const OptimizationApp = () => {
   const [showParagraph, setShowParagraph] = useState(false);
 
   const toggleParagraphHanlder = () =>
-    useCallback(
-      setShowParagraph((prevShowParagraph) => !prevShowParagraph),
-      []
-    );
-  console.log("App render!");
+    setShowParagraph((prevShowParagraph) => !prevShowParagraph);
+
   return (
     <div className={styles.app}>
       <h1>Hello there!</h1>
