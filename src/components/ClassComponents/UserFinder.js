@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { Component } from "react";
 import Users from "./Users";
-
 import styles from "./UserFinder.module.css";
 
 const DUMMY_USERS = [
@@ -9,28 +8,40 @@ const DUMMY_USERS = [
   { id: "u3", name: "Julie" },
 ];
 
-const UserFinder = () => {
-  const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    setFilteredUsers(
-      DUMMY_USERS.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm]);
-
-  const searchChangeHandler = (event) => {
-    setSearchTerm(event.target.value);
+class UserFinder extends Component {
+  state = {
+    filteredUsers: [],
+    searchQuerry: "",
   };
 
-  return (
-    <div className={styles.finder}>
-      <input type="search" onChange={searchChangeHandler} />
-      <Users users={filteredUsers} />
-    </div>
-  );
-};
+  componentDidMount() {
+    this.setState({ filteredUsers: DUMMY_USERS });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { searchQuerry } = this.state;
+
+    if (prevState.searchQuerry !== this.state.searchQuerry)
+      this.setState({
+        filteredUsers: DUMMY_USERS.filter((user) =>
+          user.name.toLowerCase().includes(searchQuerry.toLowerCase())
+        ),
+      });
+  }
+
+  searchChangeHandler = (e) => {
+    this.setState({ searchQuerry: e.target.value });
+  };
+
+  render() {
+    const { filteredUsers } = this.state;
+    return (
+      <div className={styles.finder}>
+        <input type="search" onChange={(e) => this.searchChangeHandler(e)} />
+        <Users users={filteredUsers} />
+      </div>
+    );
+  }
+}
 
 export default UserFinder;
