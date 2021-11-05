@@ -1,7 +1,12 @@
 import React from "react";
+import Users from "../components/ClassComponents/Users";
 
 const ClassComponentsApp = () => {
-  return <h1>Class Components</h1>;
+  return (
+    <>
+      <Users />
+    </>
+  );
 };
 
 export default ClassComponentsApp;
