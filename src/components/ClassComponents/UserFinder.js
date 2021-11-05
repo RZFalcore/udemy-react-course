@@ -1,5 +1,7 @@
 import { Component } from "react";
 import Users from "./Users";
+import ErrorBoundary from "./ErrorBoundary";
+
 import styles from "./UserFinder.module.css";
 
 const DUMMY_USERS = [
@@ -37,8 +39,10 @@ class UserFinder extends Component {
     const { filteredUsers } = this.state;
     return (
       <div className={styles.finder}>
-        <input type="search" onChange={(e) => this.searchChangeHandler(e)} />
-        <Users users={filteredUsers} />
+        <ErrorBoundary>
+          <input type="search" onChange={(e) => this.searchChangeHandler(e)} />
+          <Users users={filteredUsers} />
+        </ErrorBoundary>
       </div>
     );
   }
