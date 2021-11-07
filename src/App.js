@@ -4,12 +4,13 @@ import React from "react";
 // import LoginPageApp from "./Pages/LoginPageApp";
 // import FoodOrder from "./Pages/FoodOrderApp";
 // import OptimizationApp from './Pages/OptimizationApp';
-import ClassComponentsApp from './Pages/ClassComponentsApp';
+// import ClassComponentsApp from './Pages/ClassComponentsApp';
+import HtttpRequestApp from './Pages/HttpRequestsApp'
 
 function App() {
   return (
     <div>
-      <ClassComponentsApp />
+      <HtttpRequestApp />
     </div>
   );
 }
