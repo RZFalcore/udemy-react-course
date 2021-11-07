@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import AddMovie from "../components/HttpRequests/AddMovie";
 import MoviesList from "../components/HttpRequests/MoviesList";
 import styles from "./HttpRequestApp.module.css";
 
@@ -32,6 +33,8 @@ const HttpRequestsApp = () => {
     }
   }, []);
 
+  const addMovieHandler = (movie) => console.log(movie);
+
   useEffect(() => fetchMoviesHandler(), [fetchMoviesHandler]);
 
   let output;
@@ -48,6 +51,9 @@ const HttpRequestsApp = () => {
 
   return (
     <React.Fragment>
+      <section className={styles.section}>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section className={styles.section}>
         <button className={styles.button} onClick={fetchMoviesHandler}>
           Fetch Movies
