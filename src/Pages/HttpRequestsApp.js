@@ -1,35 +1,40 @@
-import React from "react";
-
+import React, { useState } from "react";
 import MoviesList from "../components/HttpRequests/MoviesList";
 import styles from "./HttpRequestApp.module.css";
 
-const dummyMovies = [
-  {
-    id: 1,
-    title: "Some Dummy Movie",
-    openingText: "This is the opening text of the movie",
-    releaseDate: "2021-05-18",
-  },
-  {
-    id: 2,
-    title: "Some Dummy Movie 2",
-    openingText: "This is the second opening text of the movie",
-    releaseDate: "2021-05-19",
-  },
-];
-
 const HttpRequestsApp = () => {
+  const [movies, setMovies] = useState([]);
+
+  const fetchMoviesHandler = () => {
+    fetch("https://swapi.dev/api/films/")
+      .then((res) => res.json())
+      .then((data) => {
+        const transformedData = data.results.map((data) => {
+          return {
+            id: data.episode_id,
+            title: data.title,
+            openingText: data.opening_crawl,
+            realeseDate: data.realese_date,
+          };
+        });
+
+        setMovies(transformedData);
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <React.Fragment>
       <section className={styles.section}>
-        <button className={styles.button}>Fetch Movies</button>
+        <button className={styles.button} onClick={fetchMoviesHandler}>
+          Fetch Movies
+        </button>
       </section>
       <section className={styles.section}>
-        <MoviesList movies={dummyMovies} />
+        <MoviesList movies={movies} />
       </section>
     </React.Fragment>
   );
 };
-  
 
 export default HttpRequestsApp;
