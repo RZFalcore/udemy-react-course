@@ -48,8 +48,8 @@ const HttpRequestsApp = () => {
           },
         }
       );
-      const data = await response.json();
-      console.log(data);
+      console.log(response);
+      if (response.ok) fetchMoviesHandler();
     } catch (e) {
       console.log(e);
       setError(e.message);
