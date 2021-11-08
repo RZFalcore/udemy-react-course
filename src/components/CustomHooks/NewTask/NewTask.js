@@ -5,7 +5,7 @@ import Section from "../UI/Section";
 import TaskForm from "./TaskForm";
 
 const NewTask = (props) => {
-  const [isLoading, error, tasks, fetchTasks] = useFetchTasks();
+  const [isLoading, error, fetchTasks] = useFetchTasks();
 
   return (
     <Section>
