@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useFetchTasks = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,9 +9,23 @@ const useFetchTasks = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/tasks.json"
-      );
+      let response;
+      if (taskText) {
+        response = await fetch(
+          "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+          {
+            method: "POST",
+            body: JSON.stringify({ text: taskText }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        response = await fetch(
+          "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/tasks.json"
+        );
+      }
 
       if (!response.ok) {
         throw new Error("Request failed!");
@@ -19,22 +33,27 @@ const useFetchTasks = () => {
 
       const data = await response.json();
 
-      const loadedTasks = [];
+      if (taskText) {
+        const generatedId = data.name; // firebase-specific => "name" contains generated id
+        const createdTask = { id: generatedId, text: taskText };
+        // props.onAddTask(createdTask);
+        setTasks((prevTasks) => prevTasks.concat(createdTask));
+      } else {
+        const loadedTasks = [];
 
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+        for (const taskKey in data) {
+          loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+        }
+
+        setTasks(loadedTasks);
       }
-
-      setTasks(loadedTasks);
     } catch (err) {
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  return [isLoading, error, tasks, fetchTasks];
 };
 
 export default useFetchTasks;
