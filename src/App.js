@@ -5,12 +5,13 @@ import React from "react";
 // import FoodOrder from "./Pages/FoodOrderApp";
 // import OptimizationApp from './Pages/OptimizationApp';
 // import ClassComponentsApp from './Pages/ClassComponentsApp';
-import HtttpRequestApp from './Pages/HttpRequestsApp'
+// import HtttpRequestApp from './Pages/HttpRequestsApp';
+import CustomHooksApp from './Pages/CustomHooksApp'
 
 function App() {
   return (
     <div>
-      <HtttpRequestApp />
+      <CustomHooksApp />
     </div>
   );
 }
