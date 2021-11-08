@@ -24,10 +24,10 @@ const useFetchTasks = () => {
       dataReceiver(data);
 
       // if (taskText) {
-      //   const generatedId = data.name; // firebase-specific => "name" contains generated id
-      //   const createdTask = { id: generatedId, text: taskText };
-      //   // props.onAddTask(createdTask);
-      //   setTasks((prevTasks) => prevTasks.concat(createdTask));
+      // const generatedId = data.name; // firebase-specific => "name" contains generated id
+      // const createdTask = { id: generatedId, text: taskText };
+      // // props.onAddTask(createdTask);
+      // setTasks((prevTasks) => prevTasks.concat(createdTask));
       // } else {
       // const loadedTasks = [];
 
