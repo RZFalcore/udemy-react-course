@@ -1,8 +1,10 @@
 import React from "react";
 import Card from "./Card";
+import useCounter from "./hooks/useCounter";
 
 const IncCounter = () => {
-  return <Card>+</Card>;
+  const counter = useCounter(true);
+  return <Card>{counter}</Card>;
 };
 
 export default IncCounter;
