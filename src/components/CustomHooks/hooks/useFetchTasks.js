@@ -10,9 +10,9 @@ const useFetchTasks = (requestConfig, dataReceiver) => {
     setError(null);
     try {
       const response = await fetch(requestConfig.url, {
-        method: requestConfig.method,
-        body: JSON.stringify(requestConfig.body),
-        headers: requestConfig.headers,
+        method: requestConfig.method ? requestConfig.method : "GET",
+        headers: requestConfig.headers ? requestConfig.headers : {},
+        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
 
       if (!response.ok) {
@@ -29,10 +29,10 @@ const useFetchTasks = (requestConfig, dataReceiver) => {
       //   // props.onAddTask(createdTask);
       //   setTasks((prevTasks) => prevTasks.concat(createdTask));
       // } else {
-      //   const loadedTasks = [];
+      // const loadedTasks = [];
 
-      //   for (const taskKey in data) {
-      //     loadedTasks.push({ id: taskKey, text: data[taskKey].text });
+      // for (const taskKey in data) {
+      //   loadedTasks.push({ id: taskKey, text: data[taskKey].text });
       //   }
 
       //   setTasks(loadedTasks);
