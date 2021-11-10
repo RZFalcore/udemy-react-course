@@ -1,23 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 const SimpleInput = (props) => {
   const [inputValue, setInputValue] = useState("");
-  const [inputValueIsValid, setInputValueIsValid] = useState(false);
   const [inputWasTouched, setInputWasTouched] = useState(false);
 
-  const inputRef = useRef();
+  const inputValueIsValid = inputValue.trim() !== "";
+  const inputIsValid = !inputValueIsValid && inputWasTouched;
 
   const changeInputHandler = (e) => {
-    if (e.target.value.trim() !== "") setInputValueIsValid(true);
     setInputValue(e.target.value);
   };
 
   const inputOnBlurHandler = (e) => {
     setInputWasTouched(true);
-
-    if (e.target.value.trim() === "") {
-      setInputValueIsValid(false);
-    }
   };
 
   const formSubmitHandler = (e) => {
@@ -25,19 +20,11 @@ const SimpleInput = (props) => {
 
     setInputWasTouched(true);
 
-    if (e.target.value.trim() === "") {
-      setInputValueIsValid(false);
-    }
-    console.log(inputValue);
+    if (!inputValueIsValid) return;
 
-    // const refInputValue = inputRef.current.value;
-    // console.log(refInputValue);
-
-    // refInputValue.current.value = "";  --- POSSIBLE, BUT NOT RECOMENDED
     setInputValue("");
+    setInputWasTouched(false);
   };
-
-  const inputIsValid = !inputValueIsValid && inputWasTouched;
 
   const formStyles = inputIsValid ? "form-control invalid" : "form-control";
 
@@ -46,7 +33,6 @@ const SimpleInput = (props) => {
       <div className={formStyles}>
         <label htmlFor="name">Your Name</label>
         <input
-          ref={inputRef}
           type="text"
           id="name"
           onChange={changeInputHandler}
@@ -60,6 +46,6 @@ const SimpleInput = (props) => {
       </div>
     </form>
   );
-};;
+};
 
 export default SimpleInput;
