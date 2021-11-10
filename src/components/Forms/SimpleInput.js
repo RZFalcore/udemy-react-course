@@ -8,8 +8,16 @@ const SimpleInput = (props) => {
   const inputRef = useRef();
 
   const changeInputHandler = (e) => {
-    if (!inputValueIsValid) setInputValueIsValid(true);
+    if (e.target.value.trim() !== "") setInputValueIsValid(true);
     setInputValue(e.target.value);
+  };
+
+  const inputOnBlurHandler = (e) => {
+    setInputWasTouched(true);
+
+    if (e.target.value.trim() === "") {
+      setInputValueIsValid(false);
+    }
   };
 
   const formSubmitHandler = (e) => {
@@ -17,7 +25,7 @@ const SimpleInput = (props) => {
 
     setInputWasTouched(true);
 
-    if (inputValue.trim().length === 0) {
+    if (e.target.value.trim() === "") {
       setInputValueIsValid(false);
     }
     console.log(inputValue);
@@ -42,6 +50,7 @@ const SimpleInput = (props) => {
           type="text"
           id="name"
           onChange={changeInputHandler}
+          onBlur={inputOnBlurHandler}
           value={inputValue}
         />
         {inputIsValid && <p className="error-text">Name must not be empty</p>}
