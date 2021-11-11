@@ -1,19 +1,20 @@
 import React, { useState } from "react";
+import useInput from "./hooks/useInput";
 
 const SimpleInput = (props) => {
-  const [nameValue, setNameValue] = useState("");
-  const [nameWasTouched, setNameWasTouched] = useState(false);
+  const {
+    value: nameValue,
+    isValid: nameIsValid,
+    hasError: nameHasError,
+    changeValueHandler: changeNameHandler,
+    valueOnBlurHandler: nameOnBlurHandler,
+    reset: resetName,
+  } = useInput((value) => {
+    return value.trim() !== "";
+  });
 
   const [emailValue, setEmailValue] = useState("");
   const [emailWasTouched, setEmailWasTouched] = useState(false);
-
-  const changeNameHandler = (e) => {
-    setNameValue(e.target.value);
-  };
-
-  const nameOnBlurHandler = (e) => {
-    setNameWasTouched(true);
-  };
 
   const changeEmailHandler = (e) => {
     setEmailValue(e.target.value);
@@ -26,14 +27,11 @@ const SimpleInput = (props) => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    setNameWasTouched(true);
-    setEmailWasTouched(true);
-
     console.log("Name: ", nameValue, "Email: ", emailValue);
 
-    setNameValue("");
+    resetName();
+
     setEmailValue("");
-    setNameWasTouched(false);
     setEmailWasTouched(false);
   };
 
@@ -45,15 +43,12 @@ const SimpleInput = (props) => {
     }
   };
 
-  const nameValueIsValid = nameValue.trim() !== "";
-  const nameIsValid = !nameValueIsValid && nameWasTouched;
-
   const emailValueIsValid = ValidateEmail(emailValue);
   const emailIsValid = !emailValueIsValid && emailWasTouched;
 
-  const formIsValid = nameValueIsValid && emailValueIsValid ? true : false;
+  const formIsValid = nameIsValid && emailValueIsValid ? true : false;
 
-  const nameformStyles = nameIsValid ? "form-control invalid" : "form-control";
+  const nameformStyles = nameHasError ? "form-control invalid" : "form-control";
   const emailformStyles = emailIsValid
     ? "form-control invalid"
     : "form-control";
@@ -69,7 +64,7 @@ const SimpleInput = (props) => {
           onBlur={nameOnBlurHandler}
           value={nameValue}
         />
-        {nameIsValid && <p className="error-text">Name must not be empty</p>}
+        {nameHasError && <p className="error-text">Name must not be empty</p>}
       </div>
       <div className={emailformStyles}>
         <label htmlFor="email">Your Email</label>
