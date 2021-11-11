@@ -27,7 +27,7 @@ const SimpleInput = (props) => {
     e.preventDefault();
 
     console.log("Name: ", nameValue, "Email: ", emailValue);
-
+    console.log("Hello Lola!");
     resetName();
     resetEmail();
   };
