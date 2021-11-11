@@ -79,6 +79,14 @@ button:active {
     border-color: #33059e;
 }
 
+button:disabled,
+button:hover,
+button:focus {
+    background-color: gray;
+    color: rgb(51, 50, 50);
+    border-color: grey;
+}
+
 .form-actions {
     text-align: right;
 }

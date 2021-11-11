@@ -1,48 +1,89 @@
 import React, { useState } from "react";
 
 const SimpleInput = (props) => {
-  const [inputValue, setInputValue] = useState("");
-  const [inputWasTouched, setInputWasTouched] = useState(false);
+  const [nameValue, setNameValue] = useState("");
+  const [nameWasTouched, setNameWasTouched] = useState(false);
 
-  const inputValueIsValid = inputValue.trim() !== "";
-  const inputIsValid = !inputValueIsValid && inputWasTouched;
+  const [emailValue, setEmailValue] = useState("");
+  const [emailWasTouched, setEmailWasTouched] = useState(false);
 
-  const changeInputHandler = (e) => {
-    setInputValue(e.target.value);
+  const changeNameHandler = (e) => {
+    setNameValue(e.target.value);
   };
 
-  const inputOnBlurHandler = (e) => {
-    setInputWasTouched(true);
+  const nameOnBlurHandler = (e) => {
+    setNameWasTouched(true);
+  };
+
+  const changeEmailHandler = (e) => {
+    setEmailValue(e.target.value);
+  };
+
+  const emailOnBlurHandler = (e) => {
+    setEmailWasTouched(true);
   };
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    setInputWasTouched(true);
+    setNameWasTouched(true);
+    setEmailWasTouched(true);
 
-    if (!inputValueIsValid) return;
+    console.log("Name: ", nameValue, "Email: ", emailValue);
 
-    setInputValue("");
-    setInputWasTouched(false);
+    setNameValue("");
+    setEmailValue("");
+    setNameWasTouched(false);
+    setEmailWasTouched(false);
   };
 
-  const formStyles = inputIsValid ? "form-control invalid" : "form-control";
+  const ValidateEmail = (mail) => {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const nameValueIsValid = nameValue.trim() !== "";
+  const nameIsValid = !nameValueIsValid && nameWasTouched;
+
+  const emailValueIsValid = ValidateEmail(emailValue);
+  const emailIsValid = !emailValueIsValid && emailWasTouched;
+
+  const formIsValid = nameValueIsValid && emailValueIsValid ? true : false;
+
+  const nameformStyles = nameIsValid ? "form-control invalid" : "form-control";
+  const emailformStyles = emailIsValid
+    ? "form-control invalid"
+    : "form-control";
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className={formStyles}>
+      <div className={nameformStyles}>
         <label htmlFor="name">Your Name</label>
         <input
           type="text"
           id="name"
-          onChange={changeInputHandler}
-          onBlur={inputOnBlurHandler}
-          value={inputValue}
+          onChange={changeNameHandler}
+          onBlur={nameOnBlurHandler}
+          value={nameValue}
         />
-        {inputIsValid && <p className="error-text">Name must not be empty</p>}
+        {nameIsValid && <p className="error-text">Name must not be empty</p>}
+      </div>
+      <div className={emailformStyles}>
+        <label htmlFor="name">Your Email</label>
+        <input
+          type="email"
+          id="name"
+          onChange={changeEmailHandler}
+          onBlur={emailOnBlurHandler}
+          value={emailValue}
+        />
+        {emailIsValid && <p className="error-text">Please enter valid email</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
