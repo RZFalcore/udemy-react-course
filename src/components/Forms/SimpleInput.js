@@ -72,10 +72,10 @@ const SimpleInput = (props) => {
         {nameIsValid && <p className="error-text">Name must not be empty</p>}
       </div>
       <div className={emailformStyles}>
-        <label htmlFor="name">Your Email</label>
+        <label htmlFor="email">Your Email</label>
         <input
           type="email"
-          id="name"
+          id="email"
           onChange={changeEmailHandler}
           onBlur={emailOnBlurHandler}
           value={emailValue}
