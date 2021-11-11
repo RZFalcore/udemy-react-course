@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 
 const defaultState = { value: "", isTouched: false };
 
@@ -17,22 +17,16 @@ const inputReducer = (state, { type, payload }) => {
 
 const useInput = (validator) => {
   const [inputState, dispatch] = useReducer(inputReducer, defaultState);
-  //   const [value, setValue] = useState("");
-  //   const [inputWasTouched, setInputWasTouched] = useState(false);
 
   const changeValueHandler = (e) => {
-    // setValue(e.target.value);
     dispatch({ type: "CHANGE", payload: e.target.value });
   };
 
   const inputOnBlurHandler = (e) => {
-    //   setInputWasTouched(true);
     dispatch({ type: "BLUR" });
   };
 
   const reset = () => {
-    // setValue("");
-    // setInputWasTouched(false);
     dispatch({ type: "RESET" });
   };
 
