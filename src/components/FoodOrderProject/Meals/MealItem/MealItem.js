@@ -12,7 +12,6 @@ const MealItem = ({ id, name, description, price }) => {
     cartCtx.addItem({ id, name, amount, price });
   };
 
-  console.log("meal item", id, name, description, price);
   return (
     <li className={styles.meal}>
       <div>

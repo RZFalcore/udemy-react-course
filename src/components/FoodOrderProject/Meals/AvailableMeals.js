@@ -38,7 +38,11 @@ const AvailableMeals = () => {
       "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
     );
     const data = await response.json();
-    setMeals(data);
+    const formatedData = [];
+    for (const key in data) {
+      formatedData.push({ id: key, ...data[key] });
+    }
+    setMeals(formatedData);
   };
 
   useEffect(() => {
