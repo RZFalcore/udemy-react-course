@@ -32,17 +32,29 @@ import MealItem from "./MealItem/MealItem";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchMeals = async () => {
-    const response = await fetch(
-      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
-    );
-    const data = await response.json();
-    const formatedData = [];
-    for (const key in data) {
-      formatedData.push({ id: key, ...data[key] });
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(
+        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+      );
+      const data = await response.json();
+
+      const formatedData = [];
+      for (const key in data) {
+        formatedData.push({ id: key, ...data[key] });
+      }
+
+      setLoading(false);
+      setMeals(formatedData);
+    } catch (error) {
+      setError(error);
     }
-    setMeals(formatedData);
   };
 
   useEffect(() => {
@@ -53,9 +65,11 @@ const AvailableMeals = () => {
     <section className={styles.meals}>
       <Card>
         <ul>
+          {loading && <p>Loading...</p>}
           {meals.map((meal) => (
             <MealItem key={meal.id} {...meal} />
           ))}
+          {error && <p>Some error happend!</p>}
         </ul>
       </Card>
     </section>
