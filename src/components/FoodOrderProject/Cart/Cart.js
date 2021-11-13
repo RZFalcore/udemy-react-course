@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import CartContext from "../store/cartContent";
 import Modal from "../UI/Modal";
 
 import styles from "./Cart.module.css";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 const Cart = ({ onCloseModal }) => {
+  const [checkout, setCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const cartHasItems = cartCtx.items.length > 0;
@@ -16,6 +18,10 @@ const Cart = ({ onCloseModal }) => {
   };
   const removeCartItemHandler = (id) => {
     cartCtx.removeItem(id);
+  };
+
+  const checkoutHandler = () => {
+    setCheckout(true);
   };
 
   const cartItems = cartCtx.items.map((item) => (
@@ -33,12 +39,19 @@ const Cart = ({ onCloseModal }) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={styles.actions}>
-        <button className={styles.buttonAlt} onClick={onCloseModal}>
-          Close
-        </button>
-        {cartHasItems && <button className={styles.buttin}>Order</button>}
-      </div>
+      {checkout && <Checkout />}
+      {!checkout && (
+        <div className={styles.actions}>
+          <button className={styles.buttonAlt} onClick={onCloseModal}>
+            Close
+          </button>
+          {cartHasItems && (
+            <button className={styles.buttin} onClick={checkoutHandler}>
+              Order
+            </button>
+          )}
+        </div>
+      )}
     </Modal>
   );
 };

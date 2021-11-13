@@ -41,7 +41,7 @@ const AvailableMeals = () => {
       setError(null);
 
       const response = await fetch(
-        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals."
+        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
       );
 
       if (!response.ok) throw new Error("Something go wrong!");
