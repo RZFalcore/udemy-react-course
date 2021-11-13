@@ -41,8 +41,11 @@ const AvailableMeals = () => {
       setError(null);
 
       const response = await fetch(
-        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals.json"
+        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/meals."
       );
+
+      if (!response.ok) throw new Error("Something go wrong!");
+
       const data = await response.json();
 
       const formatedData = [];
@@ -53,7 +56,8 @@ const AvailableMeals = () => {
       setLoading(false);
       setMeals(formatedData);
     } catch (error) {
-      setError(error);
+      setLoading(false);
+      setError(error.message);
     }
   };
 
@@ -65,11 +69,12 @@ const AvailableMeals = () => {
     <section className={styles.meals}>
       <Card>
         <ul>
-          {loading && <p>Loading...</p>}
-          {meals.map((meal) => (
-            <MealItem key={meal.id} {...meal} />
-          ))}
-          {error && <p>Some error happend!</p>}
+          {loading && <h1 style={{ textAlign: "center" }}>Loading...</h1>}
+          {!loading &&
+            meals.map((meal) => <MealItem key={meal.id} {...meal} />)}
+          {error && (
+            <h1 style={{ textAlign: "center" }}>Some error happend!</h1>
+          )}
         </ul>
       </Card>
     </section>
