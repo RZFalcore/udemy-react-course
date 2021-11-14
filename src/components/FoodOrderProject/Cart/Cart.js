@@ -39,7 +39,7 @@ const Cart = ({ onCloseModal }) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-      {checkout && <Checkout />}
+      {checkout && <Checkout onCloseModal={onCloseModal} />}
       {!checkout && (
         <div className={styles.actions}>
           <button className={styles.buttonAlt} onClick={onCloseModal}>

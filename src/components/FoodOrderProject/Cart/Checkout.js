@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Checkout.module.css";
 
-const Checkout = () => {
+const Checkout = ({ onCloseModal }) => {
   return (
     <form>
       <div className={styles.control}>
@@ -12,7 +12,9 @@ const Checkout = () => {
         <label htmlFor="adress">Your adress</label>
         <input type="text" id="adress" />
       </div>
-      <button type="button">Cancel</button>
+      <button type="button" onClick={onCloseModal}>
+        Cancel
+      </button>
       <button type="submit">Confirm</button>
     </form>
   );
