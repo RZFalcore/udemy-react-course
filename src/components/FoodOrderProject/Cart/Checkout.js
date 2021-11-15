@@ -5,6 +5,7 @@ import styles from "./Checkout.module.css";
 
 const Checkout = ({ onCloseModal }) => {
   const isNotEmpty = (value) => value.trim().length > 0;
+  const hasFiveChars = (value) => value.trim().length === 5;
 
   const {
     value: name,
@@ -15,18 +16,47 @@ const Checkout = ({ onCloseModal }) => {
     reset: nameReset,
   } = useInput(isNotEmpty);
 
+  const {
+    value: street,
+    isValid: streetIsValid,
+    hasError: streetHasError,
+    changeValueHandler: changeStreetValue,
+    onBlurHandler: streetBlur,
+    reset: streetReset,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: postal,
+    isValid: postalIsValid,
+    hasError: postalHasError,
+    changeValueHandler: changePostalValue,
+    onBlurHandler: postalBlur,
+    reset: postalReset,
+  } = useInput(hasFiveChars);
+
+  const {
+    value: city,
+    isValid: cityIsValid,
+    hasError: cityHasError,
+    changeValueHandler: changeCityValue,
+    onBlurHandler: cityBlur,
+    reset: cityReset,
+  } = useInput(isNotEmpty);
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    const formIsValid = nameIsValid;
-    console.log("formIsValid", formIsValid);
+    const formIsValid =
+      nameIsValid && streetIsValid && postalIsValid && cityIsValid;
 
     if (!formIsValid) {
       return;
     }
-    console.log(name);
 
     nameReset();
+    streetReset();
+    postalReset();
+    cityReset();
   };
 
   return (
@@ -34,22 +64,47 @@ const Checkout = ({ onCloseModal }) => {
       <Input
         value={name}
         id="name"
+        label="Your name"
         onChange={changeNameValue}
         onBlur={nameBlur}
         hasError={nameHasError}
       />
-      <div className={styles.control}>
+      <Input
+        value={street}
+        id="street"
+        label="Your street"
+        onChange={changeStreetValue}
+        onBlur={streetBlur}
+        hasError={streetHasError}
+      />
+      <Input
+        value={postal}
+        id="postal"
+        label="Postal code"
+        onChange={changePostalValue}
+        onBlur={postalBlur}
+        hasError={postalHasError}
+      />
+      <Input
+        value={city}
+        id="city"
+        label="City"
+        onChange={changeCityValue}
+        onBlur={cityBlur}
+        hasError={cityHasError}
+      />
+      {/* <div className={styles.control}>
         <label htmlFor="street">Street</label>
         <input type="text" id="street" />
-      </div>
-      <div className={styles.control}>
+      </div> */}
+      {/* <div className={styles.control}>
         <label htmlFor="postal">Postal Code</label>
         <input type="text" id="postal" />
-      </div>
-      <div className={styles.control}>
+      </div> */}
+      {/* <div className={styles.control}>
         <label htmlFor="city">City</label>
         <input type="text" id="city" />
-      </div>
+      </div> */}
       <div className={styles.actions}>
         <button type="button" onClick={onCloseModal}>
           Cancel
