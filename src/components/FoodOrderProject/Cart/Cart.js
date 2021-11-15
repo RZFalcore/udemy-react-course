@@ -8,6 +8,7 @@ import Checkout from "./Checkout";
 
 const Cart = ({ onCloseModal }) => {
   const [checkout, setCheckout] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const cartHasItems = cartCtx.items.length > 0;
@@ -27,10 +28,13 @@ const Cart = ({ onCloseModal }) => {
   const confirmHandler = (userData) => {
     const reqData = { user: userData, orderedItems: cartCtx.items };
 
+    setIsSubmitted(true);
     fetch(
       "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
       { method: "POST", body: JSON.stringify(reqData) }
     );
+
+    cartCtx.clearItems();
   };
 
   const cartItems = cartCtx.items.map((item) => (
@@ -41,8 +45,9 @@ const Cart = ({ onCloseModal }) => {
       onRemove={removeCartItemHandler.bind(null, item.id)}
     />
   ));
-  return (
-    <Modal onCloseModal={onCloseModal}>
+
+  const cartView = (
+    <React.Fragment>
       <ul className={styles.cartItems}>{cartItems}</ul>
       <div className={styles.total}>
         <span>Total amount</span>
@@ -63,6 +68,25 @@ const Cart = ({ onCloseModal }) => {
           )}
         </div>
       )}
+    </React.Fragment>
+  );
+
+  const submittedCart = (
+    <React.Fragment>
+      <h2>Success!</h2>
+      <p>Someone contact you ASAP!</p>
+      <div className={styles.actions}>
+        <button className={styles.button} onClick={onCloseModal}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
+
+  return (
+    <Modal onCloseModal={onCloseModal}>
+      {!isSubmitted && cartView}
+      {isSubmitted && submittedCart}
     </Modal>
   );
 };

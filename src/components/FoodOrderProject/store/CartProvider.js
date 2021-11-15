@@ -21,7 +21,7 @@ const cartReducer = (state, { type, payload }) => {
       }
 
       return updatedCart;
-    
+
     case "REMOVE_ITEM":
       const existedItem = state.items.find((item) => item.id === payload);
       const newCart = { ...state };
@@ -37,7 +37,8 @@ const cartReducer = (state, { type, payload }) => {
       newCart.totalAmount = state.totalAmount - existedItem.amount;
 
       return newCart;
-    
+    case "CLEAR":
+      return defautlCart;
     default:
       return state;
   }
@@ -54,10 +55,15 @@ const CartProvider = ({ children }) => {
     dispatch({ type: "REMOVE_ITEM", payload: id });
   };
 
+  const clearCartHandler = () => {
+    dispatch({ type: "CLEAR" });
+  };
+
   const cartContext = {
     ...cartState,
     addItem: addCartItemHandeler,
     removeItem: removeCartItemHandler,
+    clearItems: clearCartHandler,
   };
   return (
     <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
