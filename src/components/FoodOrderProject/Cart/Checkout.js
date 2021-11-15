@@ -1,5 +1,6 @@
 import React from "react";
 import useInput from "../hooks/useInput";
+import Input from "../UI/CheckoutInput";
 import styles from "./Checkout.module.css";
 
 const Checkout = ({ onCloseModal }) => {
@@ -18,7 +19,8 @@ const Checkout = ({ onCloseModal }) => {
     e.preventDefault();
 
     const formIsValid = nameIsValid;
-    console.log(formIsValid);
+    console.log("formIsValid", formIsValid);
+
     if (!formIsValid) {
       return;
     }
@@ -27,23 +29,15 @@ const Checkout = ({ onCloseModal }) => {
     nameReset();
   };
 
-  const nameStyles = nameHasError
-    ? `${styles.control} ${styles.invalid}`
-    : `${styles.control}`;
-
   return (
     <form className={styles.form} onSubmit={formSubmitHandler}>
-      <div className={nameStyles}>
-        <label htmlFor="name">Your Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={changeNameValue}
-          onBlur={nameBlur}
-        />
-        {nameHasError && <p>Please enter valid name!</p>}
-      </div>
+      <Input
+        value={name}
+        id="name"
+        onChange={changeNameValue}
+        onBlur={nameBlur}
+        hasError={nameHasError}
+      />
       <div className={styles.control}>
         <label htmlFor="street">Street</label>
         <input type="text" id="street" />
