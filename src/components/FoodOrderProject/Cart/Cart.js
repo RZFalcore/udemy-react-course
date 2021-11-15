@@ -24,6 +24,15 @@ const Cart = ({ onCloseModal }) => {
     setCheckout(true);
   };
 
+  const confirmHandler = (userData) => {
+    const reqData = { user: userData, orderedItems: cartCtx.items };
+
+    fetch(
+      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      { method: "POST", body: JSON.stringify(reqData) }
+    );
+  };
+
   const cartItems = cartCtx.items.map((item) => (
     <CartItem
       key={item.id}
@@ -39,14 +48,16 @@ const Cart = ({ onCloseModal }) => {
         <span>Total amount</span>
         <span>{totalAmount}</span>
       </div>
-      {checkout && <Checkout onCloseModal={onCloseModal} />}
+      {checkout && (
+        <Checkout onConfirm={confirmHandler} onCloseModal={onCloseModal} />
+      )}
       {!checkout && (
         <div className={styles.actions}>
           <button className={styles.buttonAlt} onClick={onCloseModal}>
             Close
           </button>
           {cartHasItems && (
-            <button className={styles.buttin} onClick={checkoutHandler}>
+            <button className={styles.button} onClick={checkoutHandler}>
               Order
             </button>
           )}

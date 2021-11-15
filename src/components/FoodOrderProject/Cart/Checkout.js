@@ -3,7 +3,7 @@ import useInput from "../hooks/useInput";
 import Input from "../UI/CheckoutInput";
 import styles from "./Checkout.module.css";
 
-const Checkout = ({ onCloseModal }) => {
+const Checkout = ({ onConfirm, onCloseModal }) => {
   const isNotEmpty = (value) => value.trim().length > 0;
   const hasFiveChars = (value) => value.trim().length === 5;
 
@@ -53,6 +53,8 @@ const Checkout = ({ onCloseModal }) => {
       return;
     }
 
+    onConfirm({ name, street, postal, city });
+
     nameReset();
     streetReset();
     postalReset();
@@ -93,18 +95,6 @@ const Checkout = ({ onCloseModal }) => {
         onBlur={cityBlur}
         hasError={cityHasError}
       />
-      {/* <div className={styles.control}>
-        <label htmlFor="street">Street</label>
-        <input type="text" id="street" />
-      </div> */}
-      {/* <div className={styles.control}>
-        <label htmlFor="postal">Postal Code</label>
-        <input type="text" id="postal" />
-      </div> */}
-      {/* <div className={styles.control}>
-        <label htmlFor="city">City</label>
-        <input type="text" id="city" />
-      </div> */}
       <div className={styles.actions}>
         <button type="button" onClick={onCloseModal}>
           Cancel
