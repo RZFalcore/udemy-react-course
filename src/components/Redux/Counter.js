@@ -7,6 +7,7 @@ const Counter = () => {
 
   const handleInc = () => dispatch({ type: "INCREMENT" });
   const handleDec = () => dispatch({ type: "DECREMENT" });
+  const handleNumber = () => dispatch({ type: "ADD", payload: 10 });
 
   const toggleCounterHandler = () => {};
 
@@ -16,6 +17,7 @@ const Counter = () => {
       <div className={styles.value}>{counter}</div>
       <button onClick={handleInc}>Increment</button>
       <button onClick={handleDec}>Decrement</button>
+      <button onClick={handleNumber}>Add 10</button>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );
