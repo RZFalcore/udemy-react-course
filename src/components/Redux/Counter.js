@@ -3,18 +3,18 @@ import styles from "./Counter.module.css";
 
 const Counter = () => {
   const counter = useSelector((state) => state.counter);
+  const showCounter = useSelector((state) => state.showCounter);
   const dispatch = useDispatch();
 
   const handleInc = () => dispatch({ type: "INCREMENT" });
   const handleDec = () => dispatch({ type: "DECREMENT" });
   const handleNumber = () => dispatch({ type: "ADD", payload: 10 });
-
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => dispatch({ type: "TOGGLE" });
 
   return (
     <main className={styles.counter}>
       <h1>Redux Counter</h1>
-      <div className={styles.value}>{counter}</div>
+      {showCounter && <div className={styles.value}>{counter}</div>}
       <button onClick={handleInc}>Increment</button>
       <button onClick={handleDec}>Decrement</button>
       <button onClick={handleNumber}>Add 10</button>
