@@ -1,6 +1,27 @@
 import { createStore } from "redux";
+import { createSlice } from "@reduxjs/toolkit";
 
 const defaultState = { counter: 0, showCounter: false };
+
+createSlice({
+  name: "counter",
+  defaultState,
+  reducers: {
+    increment(state) {
+      state.counter++;
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    add(state, action) {
+      state.counter = state.counter + action.payload;
+    },
+    toggle(state) {
+      state.showCounter = !state.showCounter;
+    },
+  },
+});
+
 
 const counterReducer = (state = defaultState, action) => {
   switch (action.type) {
