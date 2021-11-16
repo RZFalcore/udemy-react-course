@@ -7,12 +7,13 @@ import React from "react";
 // import ClassComponentsApp from './Pages/ClassComponentsApp';
 // import HtttpRequestApp from './Pages/HttpRequestsApp';
 // import CustomHooksApp from './Pages/CustomHooksApp'
-import FormsApp from './Pages/FormsApp';
+// import FormsApp from './Pages/FormsApp';
+import ReduxApp from './Pages/ReduxApp';
 
 function App() {
   return (
     <div>
-      <FormsApp />
+      <ReduxApp />
     </div>
   );
 }
