@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { counterActions } from "./store/index";
+import { counterActions } from "./store/counter";
 import styles from "./Counter.module.css";
 
 const Counter = () => {
