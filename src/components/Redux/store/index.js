@@ -1,7 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const defaultCounterState = { counter: 0, showCounter: false };
-const defaultAuthState = { isAuth: true };
+const defaultAuthState = { isAuth: false };
 
 const counterSlice = createSlice({
   name: "counter",

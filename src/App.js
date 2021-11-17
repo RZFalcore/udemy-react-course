@@ -9,11 +9,15 @@ import React from "react";
 // import CustomHooksApp from './Pages/CustomHooksApp'
 // import FormsApp from './Pages/FormsApp';
 import ReduxApp from './Pages/ReduxApp';
+import { Provider } from "react-redux";
+import store from "./components/Redux/store/index";
 
 function App() {
   return (
     <div>
-      <ReduxApp />
+      <Provider store={store}>
+        <ReduxApp />
+      </Provider>
     </div>
   );
 }
