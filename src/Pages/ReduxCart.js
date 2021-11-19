@@ -5,7 +5,7 @@ import Layout from "../components/ReduxCart/Layout/Layout";
 import Products from "../components/ReduxCart/Shop/Products";
 
 function ReduxApp() {
-  const showCart = useSelector((state) => state.showCart);
+  const showCart = useSelector((state) => state.cart.showCart);
 
   return (
     <Layout>

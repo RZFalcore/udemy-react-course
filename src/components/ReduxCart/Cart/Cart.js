@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import styles from "./Cart.module.css";
 
 const Cart = () => {
-  const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   const cartList = cartItems.map(({ id, title, quantity, total, price }) => (
     <CartItem key={id} item={{ id, title, quantity, total, price }} />

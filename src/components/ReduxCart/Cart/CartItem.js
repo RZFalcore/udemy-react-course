@@ -3,8 +3,6 @@ import { cartActions } from "../store/cartReducer";
 import styles from "./CartItem.module.css";
 
 const CartItem = ({ item: { id, title, quantity, total, price } }) => {
-  console.log(id, title, quantity, total, price);
-
   const dispatch = useDispatch();
 
   const quantityIncrementHandler = () => dispatch(cartActions.incQuantity(id));

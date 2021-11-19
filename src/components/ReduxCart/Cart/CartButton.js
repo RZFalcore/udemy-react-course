@@ -3,7 +3,7 @@ import { cartActions } from "../store/cartReducer";
 import styles from "./CartButton.module.css";
 
 const CartButton = (props) => {
-  const cartLength = useSelector((state) => state.cartItems).length;
+  const cartLength = useSelector((state) => state.cart.cartItems).length;
   const dispatch = useDispatch();
 
   const toggleCartHandler = () => {
