@@ -8,16 +8,19 @@ import React from "react";
 // import HtttpRequestApp from './Pages/HttpRequestsApp';
 // import CustomHooksApp from './Pages/CustomHooksApp'
 // import FormsApp from './Pages/FormsApp';
+// ---------
 // import ReduxApp from './Pages/ReduxApp';
 // import { Provider } from "react-redux";
 // import store from "./components/Redux/store/index";
+// ---------
+import ReduxCart from './Pages/ReduxCart';
 
 function App() {
   return (
     <div>
-      {/* <Provider store={store}>
-        <ReduxApp />
-      </Provider> */}
+      {/* <Provider store={store}> */}
+        <ReduxCart />
+      {/* </Provider> */}
     </div>
   );
 }
