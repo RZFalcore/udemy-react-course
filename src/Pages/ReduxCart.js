@@ -43,8 +43,9 @@ function ReduxApp() {
           title: "Success!",
           message: "Fetching cart successfully!",
         })
+      );
     };
-  }, [cart]);
+  }, [cart, dispatch]);
 
   return (
     <Layout>
