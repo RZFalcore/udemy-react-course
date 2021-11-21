@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../components/ReduxCart/store/cartReducer";
+import { sentCartData } from "../components/ReduxCart/store/cartReducer";
 
 import Cart from "../components/ReduxCart/Cart/Cart";
 import Layout from "../components/ReduxCart/Layout/Layout";
@@ -17,40 +17,12 @@ function ReduxApp() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const sendCartData = async () => {
-      dispatch(
-        cartActions.setNotification({
-          status: "pending",
-          title: "Fetching...",
-          message: "Fetching cart data.",
-        })
-      );
-      const response = await fetch(
-        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
-        { method: "PUT", body: JSON.stringify(cart) }
-      );
+    // if (isIntial) {
+    //   isIntial = false;
+    //   return;
+    // }
 
-      console.log(response);
-      if (!response.ok) throw new Error("Send cart data error");
-
-      dispatch(
-        cartActions.setNotification({
-          status: "success",
-          title: "Success!",
-          message: "Fetching cart successfully!",
-        })
-      );
-    };
-
-    sendCartData().catch((error) => {
-      dispatch(
-        cartActions.setNotification({
-          status: "error",
-          title: "Error",
-          message: error.message,
-        })
-      );
-    });
+    dispatch(sentCartData(cart));
   }, [cart, dispatch]);
 
   return (

@@ -50,6 +50,50 @@ const cartSlice = createSlice({
   },
 });
 
+export const sentCartData = (cart) => {
+  console.log("SentCartData");
+  return async (dispatch) => {
+    dispatch(
+      cartActions.setNotification({
+        status: "pending",
+        title: "Fetching...",
+        message: "Fetching cart data.",
+      })
+    );
+
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
+        { method: "PUT", body: JSON.stringify(cart) }
+      );
+
+      console.log(response);
+
+      if (!response.ok) throw new Error("Send cart data error");
+    };
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        cartActions.setNotification({
+          status: "success",
+          title: "Success!",
+          message: "Fetching cart successfully!",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        cartActions.setNotification({
+          status: "error",
+          title: "Error",
+          message: error.message,
+        })
+      );
+    }
+  };
+};
+
 export const cartActions = cartSlice.actions;
 
 export default cartSlice.reducer;
