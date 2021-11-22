@@ -34,7 +34,6 @@ export const fetchCartData = () => {
 };
 
 export const sentCartData = (cart) => {
-  console.log("SentCartData");
   return async (dispatch) => {
     dispatch(
       cartActions.setNotification({

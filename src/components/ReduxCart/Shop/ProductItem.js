@@ -8,7 +8,7 @@ const ProductItem = ({ id, title, price, description }) => {
 
   const addToCartHandler = () => {
     dispatch(
-      cartActions.addToCart({ id, title, quantity: 1, total: price, price })
+      cartActions.addItemToCart({ id, title, quantity: 1, total: price, price })
     );
   };
 

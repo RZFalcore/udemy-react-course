@@ -5,9 +5,11 @@ import styles from "./CartItem.module.css";
 const CartItem = ({ item: { id, title, quantity, total, price } }) => {
   const dispatch = useDispatch();
 
-  const quantityIncrementHandler = () => dispatch(cartActions.incQuantity(id));
+  const quantityIncrementHandler = () =>
+    dispatch(cartActions.addItemToCart({ id }));
 
-  const quantityDecrementHandler = () => dispatch(cartActions.decQuantity(id));
+  const quantityDecrementHandler = () =>
+    dispatch(cartActions.removeItemFromCart({ id }));
 
   return (
     <li className={styles.item}>
