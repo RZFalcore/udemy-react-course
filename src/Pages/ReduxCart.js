@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sentCartData } from "../components/ReduxCart/store/cartReducer";
+import {
+  fetchCartData,
+  sentCartData,
+} from "../components/ReduxCart/store/cartActions";
 
 import Cart from "../components/ReduxCart/Cart/Cart";
 import Layout from "../components/ReduxCart/Layout/Layout";
@@ -17,10 +20,14 @@ function ReduxApp() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if (isIntial) {
-    //   isIntial = false;
-    //   return;
-    // }
+    dispatch(fetchCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isIntial) {
+      isIntial = false;
+      return;
+    }
 
     dispatch(sentCartData(cart));
   }, [cart, dispatch]);
