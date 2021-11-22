@@ -8,6 +8,12 @@ const defaultProducts = {
       price: 6,
       description: "This is a first product - amazing!",
     },
+    {
+      id: "p2",
+      title: "Test 2",
+      price: 12,
+      description: "Second product",
+    },
   ],
 };
 const productsSlice = createSlice({

@@ -15,13 +15,12 @@ export const fetchCartData = () => {
 
     try {
       const cartData = await fetchData();
-      console.log("Fetched cart: ", cartData);
-        dispatch(
-          cartActions.replaceCart({
-            cartItems: cartData.cartItems || [],
-            totalQuantity: cartData.totalQuantity,
-          })
-        );
+      dispatch(
+        cartActions.replaceCart({
+          cartItems: cartData.cart || [],
+          totalQuantity: cartData.totalQuantity,
+        })
+      );
     } catch (error) {
       dispatch(
         cartActions.setNotification({
@@ -50,8 +49,6 @@ export const sentCartData = (cart) => {
         "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
         { method: "PUT", body: JSON.stringify(cart) }
       );
-
-      console.log(response);
 
       if (!response.ok) throw new Error("Send cart data error");
     };

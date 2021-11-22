@@ -31,7 +31,7 @@ function ReduxApp() {
       return;
     }
     if (changed) dispatch(sentCartData({ cart, totalQuantity }));
-  }, [cart, dispatch]);
+  }, [cart, changed, totalQuantity, dispatch]);
 
   return (
     <>

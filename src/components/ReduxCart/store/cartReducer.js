@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultCart = {
   cartItems: [],
-  totalQuantity: 1,
+  totalQuantity: 0,
   changed: false,
   showCart: false,
   notification: null,
@@ -45,6 +45,7 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push({ ...action.payload });
       }
+      state.totalQuantity += 1;
     },
     replaceCart(state, action) {
       state.totalQuantity = action.payload.totalQuantity;
