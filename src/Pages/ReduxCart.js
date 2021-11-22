@@ -13,7 +13,9 @@ import Notification from "../components/ReduxCart/UI/Notification";
 let isIntial = true;
 
 function ReduxApp() {
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cartItems);
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+  const changed = useSelector((state) => state.cart.changed);
   const showCart = useSelector((state) => state.cart.showCart);
   const notification = useSelector((state) => state.cart.notification);
 
@@ -28,8 +30,7 @@ function ReduxApp() {
       isIntial = false;
       return;
     }
-
-    dispatch(sentCartData(cart));
+    if (changed) dispatch(sentCartData({ cart, totalQuantity }));
   }, [cart, dispatch]);
 
   return (
