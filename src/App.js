@@ -13,16 +13,16 @@ import React from "react";
 // import { Provider } from "react-redux";
 // import store from "./components/Redux/store/index";
 // ---------
-import ReduxCart from './Pages/ReduxCart';
-import { Provider } from "react-redux";
-import store from "./components/ReduxCart/store/store";
+// import ReduxCart from './Pages/ReduxCart';
+// import { Provider } from "react-redux";
+// import store from "./components/ReduxCart/store/store";
+// ---------
+import RoutingApp from './Pages/RoutingApp';
 
 function App() {
   return (
     <div>
-      <Provider store={store}>
-        <ReduxCart />
-      </Provider>
+        <RoutingApp />
     </div>
   );
 }
