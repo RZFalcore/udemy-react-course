@@ -16,10 +16,10 @@ function App() {
     <Router>
       <Switch>
         <Route path="/quotes" exact>
-          <QuotesPage />
+          <QuoteDetailsPage />
         </Route>
         <Route path="/quotes/:quoteId">
-          <QuoteDetailsPage />
+          <QuotesPage />
         </Route>
         <Route path="/new-quote">
           <NewQuotePage />
