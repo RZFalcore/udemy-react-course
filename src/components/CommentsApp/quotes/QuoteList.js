@@ -1,11 +1,10 @@
-import { Fragment } from 'react';
-
-import QuoteItem from './QuoteItem';
+import React from "react";
+import QuoteItem from "./QuoteItem";
 import styles from "./QuoteList.module.css";
 
 const QuoteList = (props) => {
   return (
-    <Fragment>
+    <>
       <ul className={styles.list}>
         {props.quotes.map((quote) => (
           <QuoteItem
@@ -16,7 +15,7 @@ const QuoteList = (props) => {
           />
         ))}
       </ul>
-    </Fragment>
+    </>
   );
 };
 

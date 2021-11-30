@@ -8,7 +8,6 @@ const DUMMY_DATA = [
 
 const QuotesPage = () => {
   return <QuoteList quotes={DUMMY_DATA} />;
-  // return <h1>All Quotes page</h1>;
 };
 
 export default QuotesPage;
