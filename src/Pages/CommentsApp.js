@@ -9,6 +9,7 @@ import CommentsPage from "../components/CommentsApp/pages/CommentsPage";
 import NewQuotePage from "../components/CommentsApp/pages/NewQuotePage";
 import QuoteDetailsPage from "../components/CommentsApp/pages/QuoteDetailsPage";
 import QuotesPage from "../components/CommentsApp/pages/QuotesPage";
+import NotFound from "../components/CommentsApp/pages/NotFound";
 
 import "./CommentsApp.css";
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/comments">
             <CommentsPage />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </Layout>
