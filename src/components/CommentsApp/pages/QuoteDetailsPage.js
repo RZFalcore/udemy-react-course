@@ -1,6 +1,20 @@
 import React from "react";
-import QuoteDetail from "../quotes/HighlightedQuote";
+import { Route, useParams } from "react-router-dom";
 
-const QuoteDetailsPage = () => <QuoteDetail />;
+// import QuoteDetail from "../quotes/HighlightedQuote";
+import Comments from "../comments/Comments";
+
+const QuoteDetailsPage = () => {
+  const { quoteId } = useParams();
+  return (
+    <>
+      <h1>Quote Details Page</h1>
+      <p>{quoteId}</p>
+      <Route path={`/quotes/${quoteId}/comments`}>
+        <Comments />
+      </Route>
+    </>
+  );
+};
 
 export default QuoteDetailsPage;

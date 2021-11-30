@@ -1,21 +1,8 @@
 import React from "react";
-import { Route, useParams } from "react-router-dom";
-import Comments from "../comments/Comments";
-
-// import QuoteList from "../quotes/QuoteList";
+import QuoteList from "../quotes/QuoteList";
 
 const QuotesPage = () => {
-  const params = useParams();
-
-  return (
-    <>
-      <h1>Quote Details Page</h1>
-      <p>{params.quoteId}</p>
-      <Route path={`/quotes/${params.quoteId}/comments`}>
-        <Comments />
-      </Route>
-    </>
-  );
+  return <QuoteList />;
 };
 
 export default QuotesPage;
