@@ -23,6 +23,10 @@ const QuoteForm = (props) => {
     setOnFocus(true);
   };
 
+  const finishingEnteringHandler = () => {
+    setOnFocus(false);
+  };
+
   return (
     <>
       <Prompt
@@ -50,7 +54,7 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={styles.actions}>
-            <button className="btn" onClick={() => setOnFocus(false)}>
+            <button className="btn" onClick={finishingEnteringHandler}>
               Add Quote
             </button>
           </div>
