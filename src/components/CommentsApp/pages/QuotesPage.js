@@ -25,9 +25,10 @@ const QuotesPage = () => {
   if (error) <p className="centered focused">{error}</p>;
 
   if (status === "completed" && (!loadedQuotes || loadedQuotes.length === 0))
-    <NoQuotesFound />;
+    return <NoQuotesFound />;
 
   return <>{loadedQuotes && <QuoteList quotes={loadedQuotes} />}</>;
+  // return <QuoteList quotes={loadedQuotes} />;
 };
 
 export default QuotesPage;
