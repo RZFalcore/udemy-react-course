@@ -17,7 +17,7 @@ const QuoteDetailsPage = () => {
     error,
   } = useHttp(getSingleQuote, true);
 
-  useEffect(() => sendRequest(quoteId), [sendRequest]);
+  useEffect(() => sendRequest(quoteId), [sendRequest, quoteId]);
 
   if (status === "pending")
     <div className="centered">
@@ -26,11 +26,11 @@ const QuoteDetailsPage = () => {
 
   if (error) <p className="centered">{error}</p>;
 
-  if (!loadedQuote.text) return <p>Nothing found there...</p>;
+  if (!loadedQuote) return <p>Nothing found there...</p>;
 
   return (
     <>
-      <HighlightedQuote {...loadedQuote} />
+      {loadedQuote && <HighlightedQuote {...loadedQuote} />}
       <Route path={`${match.path}`} exact>
         <div className="centered">
           <Link to={`${match.url}/comments`} className="btn">
