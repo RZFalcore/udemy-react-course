@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 import useHttp from "../hooks/use-http";
 import { getAllComments } from "../lib/api";
@@ -13,15 +13,16 @@ const Comments = () => {
   const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
   const { quoteId } = useParams();
 
-  useEffect(() => {
-    sendRequest(quoteId);
-  }, [sendRequest, quoteId]);
+  useEffect(() => sendRequest(quoteId), [sendRequest, quoteId]);
 
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
 
-  const addedCommentHandler = () => {};
+  const addedCommentHandler = useCallback(
+    () => sendRequest(quoteId),
+    [sendRequest, quoteId]
+  );
 
   let comments;
   if (status === "pending")
@@ -54,7 +55,7 @@ const Comments = () => {
           quoteId={quoteId}
         />
       )}
-      <p>Comments...</p>
+      {comments}
     </section>
   );
 };

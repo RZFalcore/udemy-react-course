@@ -11,14 +11,14 @@ const NewCommentForm = ({ onAddingComment, quoteId }) => {
 
   useEffect(() => {
     if (status === "completed" && !error) onAddingComment();
-  }, [status, error]);
+  }, [onAddingComment, status, error]);
 
   const submitFormHandler = (event) => {
     event.preventDefault();
 
     const text = commentTextRef.current.value;
 
-    sendRequest({ text }, quoteId);
+    sendRequest({ commentData: { text }, quoteId });
   };
 
   return (
