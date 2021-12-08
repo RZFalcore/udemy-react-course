@@ -19,9 +19,10 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Navigate replace to="/welcome" />} />
-          <Route path="/welcome/*" element={<WelcomePage />} />
+          <Route path="/welcome/*" element={<WelcomePage />}>
+            <Route path="new-user" element={<h2>Hello there, userName!</h2>} />
+          </Route>
           <Route path="/products" element={<ProductsPage />} />
-
           <Route path="/products/:productId" element={<ProductDetails />} />
         </Routes>
       </main>
