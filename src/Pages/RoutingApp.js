@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 import Navigation from "../components/RoutingApp/Navigation";
 import ProductDetails from "../components/RoutingApp/Pages/ProductDetails";
@@ -18,10 +18,8 @@ function App() {
       <Navigation />
       <main>
         <Routes>
-          {/* <Route path="/" exact>
-            <Redirect to="/welcome" />
-          </Route> */}
-          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/" element={<Navigate replace to="/welcome" />} />
+          <Route path="/welcome/*" element={<WelcomePage />} />
           <Route path="/products" element={<ProductsPage />} />
 
           <Route path="/products/:productId" element={<ProductDetails />} />
