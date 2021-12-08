@@ -2,7 +2,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Routes,
   Redirect,
 } from "react-router-dom";
 import Navigation from "../components/RoutingApp/Navigation";
@@ -17,20 +17,15 @@ function App() {
     <Router>
       <Navigation />
       <main>
-        <Switch>
-          <Route path="/" exact>
+        <Routes>
+          {/* <Route path="/" exact>
             <Redirect to="/welcome" />
-          </Route>
-          <Route path="/welcome">
-            <WelcomePage />
-          </Route>
-          <Route path="/products" exact>
-            <ProductsPage />
-          </Route>
-          <Route path="/products/:productId">
-            <ProductDetails />
-          </Route>
-        </Switch>
+          </Route> */}
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+
+          <Route path="/products/:productId" element={<ProductDetails />} />
+        </Routes>
       </main>
     </Router>
   );
