@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
+import { Link, Routes, Route, useParams, useMatch } from "react-router-dom";
 import HighlightedQuote from "../quotes/HighlightedQuote";
 import Comments from "../comments/Comments";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -8,7 +8,7 @@ import { getSingleQuote } from "../lib/api";
 
 const QuoteDetailsPage = () => {
   const { quoteId } = useParams();
-  const match = useRouteMatch();
+  const match = useMatch();
 
   const {
     sendRequest,
@@ -31,16 +31,19 @@ const QuoteDetailsPage = () => {
   return (
     <>
       {loadedQuote && <HighlightedQuote {...loadedQuote} />}
-      <Route path={`${match.path}`} exact>
-        <div className="centered">
-          <Link to={`${match.url}/comments`} className="btn">
-            Show Comments
-          </Link>
-        </div>
-      </Route>
-      <Route path={`${match.path}/comments`}>
-        <Comments />
-      </Route>
+      <Routes>
+        <Route
+          path={`${match.path}`}
+          element={
+            <div className="centered">
+              <Link to={`${match.url}/comments`} className="btn">
+                Show Comments
+              </Link>
+            </div>
+          }
+        />
+        <Route path={`${match.path}/comments`} element={<Comments />} />
+      </Routes>
     </>
   );
 };

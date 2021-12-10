@@ -1,44 +1,50 @@
+import { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect,
+  Routes,
+  Navigate,
 } from "react-router-dom";
 import Layout from "../components/CommentsApp/layout/Layout";
-import CommentsPage from "../components/CommentsApp/pages/CommentsPage";
-import NewQuotePage from "../components/CommentsApp/pages/NewQuotePage";
-import QuoteDetailsPage from "../components/CommentsApp/pages/QuoteDetailsPage";
-import QuotesPage from "../components/CommentsApp/pages/QuotesPage";
-import NotFound from "../components/CommentsApp/pages/NotFound";
-
+import LoadingSpinner from "../components/CommentsApp/UI/LoadingSpinner";
 import "./CommentsApp.css";
+
+const CommentsPage = lazy(() =>
+  import("../components/CommentsApp/pages/CommentsPage")
+);
+const NewQuotePage = lazy(() =>
+  import("../components/CommentsApp/pages/NewQuotePage")
+);
+const QuoteDetailsPage = lazy(() =>
+  import("../components/CommentsApp/pages/QuoteDetailsPage")
+);
+const QuotesPage = lazy(() =>
+  import("../components/CommentsApp/pages/QuotesPage")
+);
+const NotFound = lazy(() => import("../components/CommentsApp/pages/NotFound"));
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/quotes" />
-          </Route>
-          <Route path="/quotes/:quoteId">
-            <QuoteDetailsPage />
-          </Route>
-          <Route path="/quotes" exact>
-            <QuotesPage />
-          </Route>
-          <Route path="/new-quote">
-            <NewQuotePage />
-          </Route>
-          <Route path="/comments">
-            <CommentsPage />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </Layout>
-    </Router>
+    <Suspense
+      fallback={
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
+      }
+    >
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Navigate to="/quotes" replace />} />
+            <Route path="/quotes/:quoteId" element={<QuoteDetailsPage />} />
+            <Route path="/quotes" element={<QuotesPage />} />
+            <Route path="/new-quote" element={<NewQuotePage />} />
+            <Route path="/comments" element={<CommentsPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </Suspense>
   );
 }
 

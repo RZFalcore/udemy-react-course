@@ -1,12 +1,9 @@
-import { useState, useRef } from "react";
-import { Prompt } from "react-router";
-
+import { useRef } from "react";
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import styles from "./QuoteForm.module.css";
 
 const QuoteForm = (props) => {
-  const [onFocus, setOnFocus] = useState(false);
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
@@ -19,26 +16,10 @@ const QuoteForm = (props) => {
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   };
 
-  const onFormFocusHandler = () => {
-    setOnFocus(true);
-  };
-
-  const finishingEnteringHandler = () => {
-    setOnFocus(false);
-  };
-
   return (
     <>
-      <Prompt
-        when={onFocus}
-        message={() => "You want to leave? All your data will be lost!"}
-      />
       <Card>
-        <form
-          className={styles.form}
-          onSubmit={submitFormHandler}
-          onFocus={onFormFocusHandler}
-        >
+        <form className={styles.form} onSubmit={submitFormHandler}>
           {props.isLoading && (
             <div className={styles.loading}>
               <LoadingSpinner />
@@ -54,9 +35,7 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={styles.actions}>
-            <button className="btn" onClick={finishingEnteringHandler}>
-              Add Quote
-            </button>
+            <button className="btn">Add Quote</button>
           </div>
         </form>
       </Card>

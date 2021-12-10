@@ -17,13 +17,13 @@ import React from "react";
 // import { Provider } from "react-redux";
 // import store from "./components/ReduxCart/store/store";
 // ---------
-import RoutingApp from "./Pages/RoutingApp";
-// import CommentsApp from './Pages/CommentsApp';
+// import RoutingApp from "./Pages/RoutingApp";
+import CommentsApp from './Pages/CommentsApp';
 
 function App() {
   return (
     <div>
-      <RoutingApp />
+      <CommentsApp />
     </div>
   );
 }
