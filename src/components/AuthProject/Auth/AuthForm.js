@@ -19,25 +19,26 @@ const AuthForm = () => {
     const password = passwordInputRef.current.value;
 
     setIsLoading(true);
+    let url;
 
     if (isLogin) {
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`;
     }
 
     if (!isLogin) {
-      fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ email, password, returnSecureToken: true }),
-        }
-      )
-        .then((res) => {
-          setIsLoading(false);
-          return res.json();
-        })
-        .then((data) => console.log(data))
-        .catch((e) => alert(e.message));
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`;
     }
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ email, password, returnSecureToken: true }),
+    })
+      .then((res) => {
+        setIsLoading(false);
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((e) => alert(e));
   };
 
   return (
