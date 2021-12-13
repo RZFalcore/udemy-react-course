@@ -18,12 +18,14 @@ import React from "react";
 // import store from "./components/ReduxCart/store/store";
 // ---------
 // import RoutingApp from "./Pages/RoutingApp";
-import CommentsApp from './Pages/CommentsApp';
+// import CommentsApp from './Pages/CommentsApp';
+// ---------
+import AuthApp from './Pages/AuthApp';
 
 function App() {
   return (
     <div>
-      <CommentsApp />
+      <AuthApp />
     </div>
   );
 }
