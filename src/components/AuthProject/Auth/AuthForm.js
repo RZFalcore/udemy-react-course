@@ -39,7 +39,13 @@ const AuthForm = () => {
         setIsLoading(false);
         return res.json();
       })
-      .then((data) => authContext.login(data.idToken))
+      .then((data) => {
+        if (data?.error?.message) {
+          throw new Error(data.error.message);
+        } else {
+          authContext.login(data.idToken);
+        }
+      })
       .catch((e) => alert(e));
   };
 
