@@ -4,7 +4,9 @@ import AuthContext from "../store/authContext";
 import styles from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
+
+  const logoutHandler = () => logout();
 
   return (
     <header className={styles.header}>
@@ -25,7 +27,7 @@ const MainNavigation = () => {
           )}
           {isAuthenticated && (
             <li>
-              <button>Logout</button>
+              <button onCLick={logoutHandler}>Logout</button>
             </li>
           )}
         </ul>
