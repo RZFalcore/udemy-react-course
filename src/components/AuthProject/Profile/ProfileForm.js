@@ -1,4 +1,5 @@
 import { useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/authContext";
 
 import styles from "./ProfileForm.module.css";
@@ -6,6 +7,7 @@ import styles from "./ProfileForm.module.css";
 const ProfileForm = () => {
   const newPassRef = useRef();
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ const ProfileForm = () => {
           throw new Error(data.error.message);
         } else {
           console.log("Success!");
+          navigate("/");
         }
       })
       .catch((e) => alert(e));
