@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,14 +9,10 @@ import UserProfile from "../components/AuthProject/Profile/UserProfile";
 import AuthPage from "../components/AuthProject/pages/AuthPage";
 import HomePage from "../components/AuthProject/pages/HomePage";
 import "./AuthApp.css";
-import AuthContext, {
-  AuthContxProvider,
-} from "../components/AuthProject/store/authContext";
+import { AuthContxProvider } from "../components/AuthProject/store/authContext";
 import RequiredAuth from "../components/AuthProject/RequiredAuth";
 
 function App() {
-  const { isAuthenticated } = useContext(AuthContext);
-
   return (
     <AuthContxProvider>
       <Router>
