@@ -46,7 +46,10 @@ const AuthForm = () => {
         if (data?.error?.message) {
           throw new Error(data.error.message);
         } else {
-          authContext.login(data.idToken);
+          const expirationTime = new Date(
+            new Date().getTime() + +data.expiresIn * 1000
+          );
+          authContext.login(data.idToken, expirationTime.toISOString());
           navigate("/");
         }
       })
