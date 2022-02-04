@@ -13,6 +13,7 @@ import "./AuthApp.css";
 import AuthContext, {
   AuthContxProvider,
 } from "../components/AuthProject/store/authContext";
+import RequiredAuth from "../components/AuthProject/RequiredAuth";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -23,9 +24,11 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/auth" element={<AuthPage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="*" element={<Navigate to="/auth" />} />
+            <Route element={<RequiredAuth />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/profile" element={<UserProfile />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Layout>
       </Router>
