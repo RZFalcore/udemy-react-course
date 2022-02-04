@@ -16,7 +16,9 @@ const calcRemainigTime = (experationTime) => {
 
 
 const getToken = () => {
-  const remainingTime = new Date(localStorage.getItem("expiredIn")).getTime();
+  const remainingTime =
+    new Date(localStorage.getItem("expiredIn")).getTime() -
+    new Date().getTime();
   return remainingTime && remainingTime > 0
     ? localStorage.getItem("token")
     : null;
@@ -38,6 +40,7 @@ export const AuthContxProvider = ({ children }) => {
   const logoutHandler = () => {
     setToken(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("expiredIn");
   };
 
   const contextValue = {

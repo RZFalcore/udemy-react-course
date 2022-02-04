@@ -17,7 +17,6 @@ import RequiredAuth from "../components/AuthProject/RequiredAuth";
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext);
-  console.log(isAuthenticated);
 
   return (
     <AuthContxProvider>
