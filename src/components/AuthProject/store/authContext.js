@@ -14,14 +14,25 @@ const calcRemainigTime = (experationTime) => {
   return indicativeExprTime - currentTime > 0 ? true : false;
 };
 
+
+const getToken = () => {
+  const remainingTime = new Date(localStorage.getItem("expiredIn")).getTime();
+  return remainingTime && remainingTime > 0
+    ? localStorage.getItem("token")
+    : null;
+};
+
 export const AuthContxProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(getToken());
 
   const userLoggedIn = !!token;
 
   const loginHandler = (token, expirationTime) => {
     setToken(token);
-    if (calcRemainigTime(expirationTime)) localStorage.setItem("token", token);
+    if (calcRemainigTime(expirationTime)) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("expiredIn", expirationTime);
+    }
   };
 
   const logoutHandler = () => {
