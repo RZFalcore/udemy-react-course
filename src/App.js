@@ -20,12 +20,14 @@ import React from "react";
 // import RoutingApp from "./Pages/RoutingApp";
 // import CommentsApp from './Pages/CommentsApp';
 // ---------
-import AuthApp from './Pages/AuthApp';
+// import AuthApp from './Pages/AuthApp';
+// ---------
+import AnimationsApp from "./Pages/AnimationsApp"
 
 function App() {
   return (
     <div>
-      <AuthApp />
+      <AnimationsApp />
     </div>
   );
 }
