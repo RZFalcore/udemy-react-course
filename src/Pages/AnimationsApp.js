@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React Animations</h1>
-        {/* <button
+        <button
           className="Button"
           onClick={() =>
             this.setState((prevState) => ({ showBlock: !prevState.showBlock }))
@@ -37,6 +37,12 @@ class App extends Component {
           timeout={500}
           mountOnEnter
           unmountOnExit
+          onEnter={() => console.log("On Enter")}
+          onEntering={() => console.log("On Entering")}
+          onEntered={() => console.log("On Entered")}
+          onExit={() => console.log("On Exit")}
+          onExiting={() => console.log("On Exiting")}
+          onExited={() => console.log("On Exited")}
         >
           {(state) => (
             <div
@@ -53,7 +59,7 @@ class App extends Component {
               Hello There!
             </div>
           )}
-        </Transition> */}
+        </Transition>
         <br />
 
         <Modal show={this.state.modalIsOpen} closed={this.closeModal} />

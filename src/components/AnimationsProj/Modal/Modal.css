@@ -13,44 +13,48 @@
     transition: all 500ms ease-in-out;
 }
 
-.ModalOpen {
+.fade-slide-enter {}
+
+.fade-slide-enter-active {
     animation: openModal 0.5s ease-out forwards;
+}
+
+.fade-slide-exit {}
+
+.fade-slide-exit-active {
+    animation: closeModal 0.5s ease-out forwards;
+}
+
+@keyframes openModal {
+    0% {
+        opacity: 0.1;
+        transform: translateY(-200%);
     }
 
-    .ModalClosed {
-        animation: closeModal 0.5s ease-out forwards;
+    50% {
+        opacity: 0.9;
+        transform: translateY(50%);
     }
 
-    @keyframes openModal {
-        0% {
-            opacity: 0.1;
-            transform: translateY(-200%);
-        }
-
-        50% {
-            opacity: 0.9;
-            transform: translateY(50%);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-            }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
     }
 
-    @keyframes closeModal {
-        0% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        50% {
-            opacity: 0.9;
-            transform: translateY(50%);
-        }
+    50% {
+        opacity: 0.9;
+        transform: translateY(50%);
+    }
 
-        100% {
-            opacity: 0;
-            transform: translateY(-200%);
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
     }
 }
