@@ -1,23 +1,33 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "../components/ReplaceRedux/App";
-import productReducer from "../components/ReplaceRedux/store/reducers/products";
+import ProductsProvider from "../components/ReplaceRedux/context/productsContext";
 
-const rootReducer = combineReducers({
-  shop: productReducer,
-});
+//  Switched redux to context API
 
-const store = createStore(rootReducer);
+// import { Provider } from "react-redux";
+// import { combineReducers, createStore } from "redux";
+// import productReducer from "../components/ReplaceRedux/store/reducers/products";
+
+// const rootReducer = combineReducers({
+//   shop: productReducer,
+// });
+
+// const store = createStore(rootReducer);
 
 const ReplaceReduxApp = () => (
-  <Provider store={store}>
+  <ProductsProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
+  </ProductsProvider>
+
+  // <Provider store={store}>
+  //   <BrowserRouter>
+  //     <App />
+  //   </BrowserRouter>
+  // </Provider>
 );
 
 export default ReplaceReduxApp;
