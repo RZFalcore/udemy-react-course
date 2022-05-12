@@ -27,15 +27,29 @@ const defaultProducts = [
   },
 ];
 
+
 export const ProductsContext = React.createContext({
   products: [],
+  toggleFavorite: (id) => {},
 });
 
 export default (props) => {
   const [productsList, setProductsList] = useState(defaultProducts);
 
+  const toggleFavorite = (id) => {
+    setProductsList((current) =>
+      current.map((prod) => {
+        if (prod.id === id) return { ...prod, isFavorite: !prod.isFavorite };
+        else return prod;
+      })
+    );
+    console.log("productsList", productsList);
+  };
+
   return (
-    <ProductsContext.Provider value={{ products: productsList }}>
+    <ProductsContext.Provider
+      value={{ products: productsList, toggleFavorite }}
+    >
       {props.children}
     </ProductsContext.Provider>
   );
