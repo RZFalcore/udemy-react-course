@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const globalState = {};
-const listeners = [];
-const actions = {};
+let globalState = {};
+let listeners = [];
+let actions = {};
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
   const setState = useState(globalState)[1];
 
   const dispatch = (actionId, payload) => {
@@ -15,15 +15,19 @@ export const useStore = () => {
   };
 
   useEffect(() => {
-    listeners.push(setState);
+    if (shouldListen) listeners.push(setState);
 
-    return () => listeners.filter((listener) => listener !== setState);
-  }, [setState]);
+    return () => {
+      if (shouldListen) listeners.filter((listener) => listener !== setState);
+    };
+  }, [setState, shouldListen]);
 
   return [globalState, dispatch];
 };
 
 export const initStore = (userActions, initialState) => {
-  if (initialState) globalState = { ...globalState, ...initialState };
+  if (initialState) {
+    globalState = { ...globalState, ...initialState };
+  }
   actions = { ...actions, ...userActions };
 };

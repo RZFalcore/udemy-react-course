@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "../components/ReplaceRedux/App";
-import ProductsProvider from "../components/ReplaceRedux/context/productsContext";
+import configureStore from "../components/ReplaceRedux/hooks-state/products-store";
+// import ProductsProvider from "../components/ReplaceRedux/context/productsContext";
 
 //  Switched redux to context API
 
@@ -16,12 +17,14 @@ import ProductsProvider from "../components/ReplaceRedux/context/productsContext
 
 // const store = createStore(rootReducer);
 
+configureStore();
+
 const ReplaceReduxApp = () => (
-  <ProductsProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ProductsProvider>
+  // <ProductsProvider>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  // </ProductsProvider>
 
   // <Provider store={store}>
   //   <BrowserRouter>

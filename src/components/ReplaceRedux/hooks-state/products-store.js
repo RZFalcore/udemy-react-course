@@ -29,8 +29,8 @@ const defaultProducts = [
 
 const configureStore = () => {
   const actions = {
-    toggleFav: (curStore, id) => {
-      curStore.products.map((product) => {
+    TOGGLE_FAV: (curState, id) => {
+      return curState.products.map((product) => {
         if (product.id === id)
           return { ...product, isFavorite: !product.isFavorite };
         else return product;

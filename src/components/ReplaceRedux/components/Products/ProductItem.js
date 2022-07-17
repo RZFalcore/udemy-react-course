@@ -1,20 +1,15 @@
-import React, { useContext } from "react";
-import { ProductsContext } from "../../context/productsContext";
+import React from "react";
+import { useStore } from "../../hooks-state/store";
 
 import Card from "../UI/Card";
 import "./ProductItem.css";
 
-// import { useDispatch } from 'react-redux';
-// import { toggleFav } from '../../store/actions/products';
-
-const ProductItem = (props) => {
-  const toggle = useContext(ProductsContext).toggleFavorite;
-
-  // const dispatch = useDispatch();
+const ProductItem = React.memo((props) => {
+  const dispatch = useStore(false)[1];
 
   const toggleFavHandler = () => {
-    toggle(props.id);
-    // dispatch(toggleFav(props.id));
+    console.log("toggleFavHandler", props.id);
+    dispatch("TOGGLE_FAV", props.id);
   };
 
   return (
@@ -31,6 +26,6 @@ const ProductItem = (props) => {
       </div>
     </Card>
   );
-};
+});
 
 export default ProductItem;
