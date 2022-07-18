@@ -23,12 +23,13 @@ import React from "react";
 // import AuthApp from './Pages/AuthApp';
 // ---------
 // import AnimationsApp from "./Pages/AnimationsApp";
-import ReplaceReduxApp from './Pages/ReplaceRedux';
+// import ReplaceReduxApp from './Pages/ReplaceRedux';
+import TestingApp from './Pages/TestingApp'
 
 function App() {
   return (
     <div>
-      <ReplaceReduxApp/>
+      <TestingApp/>
     </div>
   );
 }
