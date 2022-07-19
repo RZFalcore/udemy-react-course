@@ -3,14 +3,16 @@ import "@testing-library/jest-dom/extend-expect";
 
 import Greeting from "./Greeting";
 
-test("renders Hello there text", () => {
-  // Arrange
-  render(<Greeting />);
+describe("Greeting component", () => {
+  test("renders Hello there text", () => {
+    // Arrange
+    render(<Greeting />);
 
-  // Act
-  // ...
+    // Act
+    // ...
 
-  // Assert
-  const helloElement = screen.getByText("Hello there!", { exact: true });
-  expect(helloElement).toBeInTheDocument();
+    // Assert
+    const helloElement = screen.getByText("Hello there!", { exact: true });
+    expect(helloElement).toBeInTheDocument();
+  });
 });
