@@ -24,12 +24,13 @@ import React from "react";
 // ---------
 // import AnimationsApp from "./Pages/AnimationsApp";
 // import ReplaceReduxApp from './Pages/ReplaceRedux';
-import TestingApp from './Pages/TestingApp'
+// import TestingApp from "./Pages/TestingApp";
+import HooksApp from "./Pages/HooksApp";
 
 function App() {
   return (
     <div>
-      <TestingApp/>
+      <HooksApp />
     </div>
   );
 }
