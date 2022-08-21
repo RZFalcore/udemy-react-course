@@ -1,7 +1,9 @@
 import React from "react";
+import Ingridients from "../components/HooksApp/Ingredients/Ingredients";
+import "./HooksApp.css";
 
 const HooksApp = () => {
-  return <h1>Title</h1>;
+  return <Ingridients />;
 };
 
 export default HooksApp;
