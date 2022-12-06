@@ -11,13 +11,19 @@ function Ingredients() {
     setIngridients((prevState) => [...prevState, newIngridient]);
   };
 
+  const deleteHandler = (id) => {
+    setIngridients((prevState) =>
+      prevState.filter((ingridient) => ingridient.id !== id)
+    );
+  };
+
   return (
     <div className="App">
       <IngredientForm onSubmit={submitHandler} />
 
       <section>
         <Search />
-        <IngidientList ingredients={ingredients} onRemoveItem={() => {}} />
+        <IngidientList ingredients={ingredients} onRemoveItem={deleteHandler} />
       </section>
     </div>
   );
