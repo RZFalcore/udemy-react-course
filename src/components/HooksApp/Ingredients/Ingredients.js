@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
@@ -7,24 +7,24 @@ import Search from "./Search";
 function Ingredients() {
   const [ingredients, setIngridients] = useState([]);
 
-  useEffect(() => {
-    fetch(
-      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const ingridientsList = [];
-        for (const k in data) {
-          ingridientsList.push({
-            id: k,
-            title: data[k].title,
-            amount: data[k].amount,
-          });
-        }
-        setIngridients(ingridientsList);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json"
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const ingridientsList = [];
+  //       for (const k in data) {
+  //         ingridientsList.push({
+  //           id: k,
+  //           title: data[k].title,
+  //           amount: data[k].amount,
+  //         });
+  //       }
+  //       setIngridients(ingridientsList);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, []);
 
   const submitHandler = (newIngridient) => {
     fetch(
@@ -51,12 +51,16 @@ function Ingredients() {
     );
   };
 
+  const filteredIngridientsHanlder = useCallback((filteredIngr) => {
+    setIngridients(filteredIngr);
+  }, []);
+
   return (
     <div className="App">
       <IngredientForm onSubmit={submitHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngridients={filteredIngridientsHanlder} />
         <IngidientList ingredients={ingredients} onRemoveItem={deleteHandler} />
       </section>
     </div>
