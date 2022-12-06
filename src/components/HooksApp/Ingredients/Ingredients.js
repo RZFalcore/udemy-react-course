@@ -8,7 +8,22 @@ function Ingredients() {
   const [ingredients, setIngridients] = useState([]);
 
   const submitHandler = (newIngridient) => {
-    setIngridients((prevState) => [...prevState, newIngridient]);
+    fetch(
+      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
+      {
+        method: "POST",
+        body: JSON.stringify(newIngridient),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) =>
+        setIngridients((prevState) => [
+          ...prevState,
+          { id: data.name, ...newIngridient },
+        ])
+      )
+      .catch((e) => console.log(e));
   };
 
   const deleteHandler = (id) => {

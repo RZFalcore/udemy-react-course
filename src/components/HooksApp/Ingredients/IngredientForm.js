@@ -9,9 +9,8 @@ const IngredientForm = React.memo(({ onSubmit }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const id = Math.random() * 1000;
 
-    onSubmit({ title, amount, id: id.toString() });
+    onSubmit({ title, amount });
     setTitle("");
     setAmount("");
   };
