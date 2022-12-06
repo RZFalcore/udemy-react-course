@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
@@ -6,6 +6,25 @@ import Search from "./Search";
 
 function Ingredients() {
   const [ingredients, setIngridients] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const ingridientsList = [];
+        for (const k in data) {
+          ingridientsList.push({
+            id: k,
+            title: data[k].title,
+            amount: data[k].amount,
+          });
+        }
+        setIngridients(ingridientsList);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   const submitHandler = (newIngridient) => {
     fetch(
