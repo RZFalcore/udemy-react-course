@@ -1,12 +1,27 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import ErrorModal from "../UI/ErrorModal";
 
+const ingridientsReducer = (state, action) => {
+  switch (action.type) {
+    case "SET":
+      return action.ingridients;
+    case "ADD":
+      return [...state, action.ingridient];
+    case "DELETE":
+      return state.filter((ing) => ing.id !== action.id);
+    default:
+      throw new Error("Something go wrong!");
+  }
+};
+
 function Ingredients() {
-  const [ingredients, setIngridients] = useState([]);
+  const [ingredients, dispatch] = useReducer(ingridientsReducer, []);
+
+  // const [ingredients, setIngridients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -23,10 +38,14 @@ function Ingredients() {
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
-        setIngridients((prevState) => [
-          ...prevState,
-          { id: data.name, ...newIngridient },
-        ]);
+        // setIngridients((prevState) => [
+        //   ...prevState,
+        //   { id: data.name, ...newIngridient },
+        // ]);
+        dispatch({
+          type: "ADD",
+          ingridient: { id: data.name, ...newIngridient },
+        });
       })
       .catch((e) => {
         setIsLoading(false);
@@ -43,9 +62,10 @@ function Ingredients() {
       .then((res) => {
         if (res.ok) {
           setIsLoading(false);
-          setIngridients((prevState) =>
-            prevState.filter((ingridient) => ingridient.id !== id)
-          );
+          // setIngridients((prevState) =>
+          //   prevState.filter((ingridient) => ingridient.id !== id)
+          // );
+          dispatch({ type: "DELETE", id });
         }
       })
       .catch((e) => {
@@ -55,7 +75,8 @@ function Ingredients() {
   };
 
   const filteredIngridientsHanlder = useCallback((filteredIngr) => {
-    setIngridients(filteredIngr);
+    dispatch({ type: "SET", ingridients: filteredIngr });
+    // setIngridients(filteredIngr);
   }, []);
 
   const clearErrorHandler = () => {

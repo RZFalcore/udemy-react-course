@@ -34,7 +34,7 @@ const Search = React.memo(({ onLoadIngridients, setLoading }) => {
       }
     }, 300);
     return () => clearTimeout(delay);
-  }, [filter, onLoadIngridients]);
+  }, [filter, onLoadIngridients, setLoading]);
 
   const changeFilterHandler = (e) => setFilter(e.target.value);
   return (
