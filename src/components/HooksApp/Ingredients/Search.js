@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../UI/Card";
 import "./Search.css";
 
-const Search = React.memo(({ onLoadIngridients }) => {
+const Search = React.memo(({ onLoadIngridients, setLoading }) => {
   const [filter, setFilter] = useState("");
   const inputRef = useRef();
 
@@ -12,7 +12,7 @@ const Search = React.memo(({ onLoadIngridients }) => {
       if (filter === inputRef.current.value) {
         const querry =
           filter.length === 0 ? "" : `?orderBy="title"&equalTo="${filter}"`;
-
+        setLoading(true);
         fetch(
           "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json" +
             querry
@@ -27,6 +27,7 @@ const Search = React.memo(({ onLoadIngridients }) => {
                 amount: data[k].amount,
               });
             }
+            setLoading(false);
             onLoadIngridients(ingridientsList);
           })
           .catch((e) => console.log(e));
