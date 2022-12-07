@@ -8,9 +8,9 @@ function Ingredients() {
   const [ingredients, setIngridients] = useState([]);
 
   // useEffect(() => {
-  //   fetch(
-  //     "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json"
-  //   )
+  // fetch(
+  //   "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json"
+  // )
   //     .then((res) => res.json())
   //     .then((data) => {
   //       const ingridientsList = [];
@@ -46,9 +46,15 @@ function Ingredients() {
   };
 
   const deleteHandler = (id) => {
-    setIngridients((prevState) =>
-      prevState.filter((ingridient) => ingridient.id !== id)
-    );
+    fetch(
+      `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
+      { method: "DELETE" }
+    ).then((res) => {
+      res.ok &&
+        setIngridients((prevState) =>
+          prevState.filter((ingridient) => ingridient.id !== id)
+        );
+    });
   };
 
   const filteredIngridientsHanlder = useCallback((filteredIngr) => {
