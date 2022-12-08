@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Card from "../UI/Card";
 import "./Search.css";
 
-const Search = React.memo(({ onLoadIngridients, setLoading }) => {
+const Search = React.memo(({ onLoadIngredients, setLoading }) => {
   const [filter, setFilter] = useState("");
   const inputRef = useRef();
 
@@ -12,29 +12,29 @@ const Search = React.memo(({ onLoadIngridients, setLoading }) => {
       if (filter === inputRef.current.value) {
         const querry =
           filter.length === 0 ? "" : `?orderBy="title"&equalTo="${filter}"`;
-        setLoading(true);
+        // setLoading("SEND");
         fetch(
           "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json" +
             querry
         )
           .then((res) => res.json())
           .then((data) => {
-            const ingridientsList = [];
+            const ingredientsList = [];
             for (const k in data) {
-              ingridientsList.push({
+              ingredientsList.push({
                 id: k,
                 title: data[k].title,
                 amount: data[k].amount,
               });
             }
-            setLoading(false);
-            onLoadIngridients(ingridientsList);
-          })
-          .catch((e) => console.log(e));
+            // setLoading("RESPONSE");
+            onLoadIngredients(ingredientsList);
+          });
+        // .catch((e) => setLoading("ERROR", { error: e }));
       }
     }, 300);
     return () => clearTimeout(delay);
-  }, [filter, onLoadIngridients, setLoading]);
+  }, [filter, onLoadIngredients, setLoading]);
 
   const changeFilterHandler = (e) => setFilter(e.target.value);
   return (

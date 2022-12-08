@@ -1,16 +1,16 @@
-import React, { useState, useReducer, useCallback } from "react";
+import React, { useReducer, useCallback } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import ErrorModal from "../UI/ErrorModal";
 
-const ingridientsReducer = (state, action) => {
+const ingredientsReducer = (state, action) => {
   switch (action.type) {
     case "SET":
-      return action.ingridients;
+      return action.ingredients;
     case "ADD":
-      return [...state, action.ingridient];
+      return [...state, action.ingredient];
     case "DELETE":
       return state.filter((ing) => ing.id !== action.id);
     default:
@@ -18,87 +18,88 @@ const ingridientsReducer = (state, action) => {
   }
 };
 
+const httpReducer = (state, action) => {
+  switch (action.type) {
+    case "SEND":
+      return { isLoading: true, error: null };
+    case "RESPONSE":
+      return { ...state, isLoading: false };
+    case "CLEAR":
+      return { ...state, error: null };
+    case "ERROR":
+      return { isLoading: false, error: action.error };
+    default:
+      throw new Error("Something go wrong!");
+  }
+};
+
 function Ingredients() {
-  const [ingredients, dispatch] = useReducer(ingridientsReducer, []);
+  const [ingredients, ingredientsDispatch] = useReducer(ingredientsReducer, []);
+  const [http, httpDispatch] = useReducer(httpReducer, {
+    isLoading: false,
+    error: null,
+  });
 
-  // const [ingredients, setIngridients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const submitHandler = (newIngridient) => {
-    setIsLoading(true);
+  const submitHandler = (newIngredient) => {
+    httpDispatch("SEND");
     fetch(
       "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
       {
         method: "POST",
-        body: JSON.stringify(newIngridient),
+        body: JSON.stringify(newIngredient),
         headers: { "Content-Type": "application/json" },
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        setIsLoading(false);
-        // setIngridients((prevState) => [
-        //   ...prevState,
-        //   { id: data.name, ...newIngridient },
-        // ]);
-        dispatch({
+        httpDispatch("RESPONSE");
+        ingredientsDispatch({
           type: "ADD",
-          ingridient: { id: data.name, ...newIngridient },
+          ingredient: { id: data.name, ...newIngredient },
         });
       })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.message);
-      });
+      .catch((e) => httpDispatch("ERROR", { error: e.message }));
   };
 
   const deleteHandler = (id) => {
-    setIsLoading(true);
+    httpDispatch("SEND");
     fetch(
       `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
       { method: "DELETE" }
     )
       .then((res) => {
         if (res.ok) {
-          setIsLoading(false);
-          // setIngridients((prevState) =>
-          //   prevState.filter((ingridient) => ingridient.id !== id)
-          // );
-          dispatch({ type: "DELETE", id });
+          httpDispatch("RESPONSE");
+          ingredientsDispatch({ type: "DELETE", id });
         }
       })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.message);
-      });
+      .catch((e) => httpDispatch("ERROR", { error: e.message }));
   };
 
-  const filteredIngridientsHanlder = useCallback((filteredIngr) => {
-    dispatch({ type: "SET", ingridients: filteredIngr });
-    // setIngridients(filteredIngr);
+  const filteredIngredientsHanlder = useCallback((filteredIngr) => {
+    ingredientsDispatch({ type: "SET", ingredients: filteredIngr });
   }, []);
 
-  const clearErrorHandler = () => {
-    setError(null);
-  };
+  const clearErrorHandler = () => httpDispatch("CLEAR");
 
   return (
     <div className="App">
-      <IngredientForm onSubmit={submitHandler} loading={isLoading} />
+      <IngredientForm onSubmit={submitHandler} loading={http.isLoading} />
 
       <section>
         <Search
-          onLoadIngridients={filteredIngridientsHanlder}
-          setLoading={setIsLoading}
+          onLoadIngredients={filteredIngredientsHanlder}
+          // setLoading={httpDispatch}
         />
         <IngidientList
           ingredients={ingredients}
           onRemoveItem={deleteHandler}
-          loading={isLoading}
+          loading={http.isLoading}
         />
       </section>
-      {error && <ErrorModal onClose={clearErrorHandler}>{error}</ErrorModal>}
+      {http.error && (
+        <ErrorModal onClose={clearErrorHandler}>{http.error}</ErrorModal>
+      )}
     </div>
   );
 }
