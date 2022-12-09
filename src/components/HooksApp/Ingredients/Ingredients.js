@@ -50,7 +50,7 @@ function Ingredients() {
   const deleteHandler = useCallback(
     (id) => {
       sendRequest(
-        `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
+        `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.jon`,
         "DELETE",
         null,
         id,
@@ -64,10 +64,6 @@ function Ingredients() {
     ingredientsDispatch({ type: "SET", ingredients: filteredIngr });
   }, []);
 
-  const clearErrorHandler = useCallback(() => {
-    // httpDispatch("CLEAR");
-  }, []);
-
   const ingridientsList = useMemo(() => {
     return (
       <IngidientList ingredients={ingredients} onRemoveItem={deleteHandler} />
@@ -76,7 +72,7 @@ function Ingredients() {
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearErrorHandler}>{error}</ErrorModal>}
+      {error && <ErrorModal onClose={clear}>{error}</ErrorModal>}
       <IngredientForm onSubmit={submitHandler} loading={isLoading} />
 
       <section>

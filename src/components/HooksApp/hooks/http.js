@@ -54,7 +54,7 @@ const useHttp = () => {
 
   const clear = useCallback(() => httpDispatch({ type: "CLEAR" }), []);
 
-  return { ...http, sendRequest: sendRequest, clear: clear };
+  return { ...http, sendRequest, clear };
 };
 
 export default useHttp;
