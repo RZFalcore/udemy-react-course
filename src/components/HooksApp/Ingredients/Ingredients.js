@@ -4,6 +4,7 @@ import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import ErrorModal from "../UI/ErrorModal";
+import useHttp from "../hooks/http";
 
 const ingredientsReducer = (state, action) => {
   switch (action.type) {
@@ -18,69 +19,49 @@ const ingredientsReducer = (state, action) => {
   }
 };
 
-const httpReducer = (state, action) => {
-  switch (action.type) {
-    case "SEND":
-      return { isLoading: true, error: null };
-    case "RESPONSE":
-      return { ...state, isLoading: false };
-    case "CLEAR":
-      return { ...state, error: null };
-    case "ERROR":
-      return { isLoading: false, error: action.error };
-    default:
-      throw new Error("Something go wrong!");
-  }
-};
-
 function Ingredients() {
   const [ingredients, ingredientsDispatch] = useReducer(ingredientsReducer, []);
-  const [http, httpDispatch] = useReducer(httpReducer, {
-    isLoading: false,
-    error: null,
-  });
+  const { isLoading, error, data, sendRequest } = useHttp();
 
   const submitHandler = useCallback((newIngredient) => {
-    httpDispatch("SEND");
-    fetch(
-      "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
-      {
-        method: "POST",
-        body: JSON.stringify(newIngredient),
-        headers: { "Content-Type": "application/json" },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        return ingredientsDispatch({
-          type: "ADD",
-          ingredient: { id: data.name, ...newIngredient },
-        });
-      })
-      .catch((e) => httpDispatch("ERROR", { error: e.message }));
-    httpDispatch("RESPONSE");
+    // httpDispatch("SEND");
+    // fetch(
+    //   "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(newIngredient),
+    //     headers: { "Content-Type": "application/json" },
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     return ingredientsDispatch({
+    //       type: "ADD",
+    //       ingredient: { id: data.name, ...newIngredient },
+    //     });
+    //   })
+    //   .catch((e) => httpDispatch("ERROR", { error: e.message }));
+    // httpDispatch("RESPONSE");
   }, []);
 
-  const deleteHandler = useCallback((id) => {
-    httpDispatch("SEND");
-    fetch(
-      `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
-      { method: "DELETE" }
-    )
-      .then((res) => {
-        if (res.ok) {
-          httpDispatch("RESPONSE");
-          ingredientsDispatch({ type: "DELETE", id });
-        }
-      })
-      .catch((e) => httpDispatch("ERROR", { error: e.message }));
-  }, []);
+  const deleteHandler = useCallback(
+    (id) => {
+      sendRequest(
+        `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
+        "DELETE"
+      );
+      // httpDispatch("SEND");
+    },
+    [sendRequest]
+  );
 
   const filteredIngredientsHanlder = useCallback((filteredIngr) => {
     ingredientsDispatch({ type: "SET", ingredients: filteredIngr });
   }, []);
 
-  const clearErrorHandler = useCallback(() => httpDispatch("CLEAR"), []);
+  const clearErrorHandler = useCallback(() => {
+    // httpDispatch("CLEAR");
+  }, []);
 
   const ingridientsList = useMemo(() => {
     return (
@@ -90,15 +71,13 @@ function Ingredients() {
 
   return (
     <div className="App">
-      <IngredientForm onSubmit={submitHandler} loading={http.isLoading} />
+      {error && <ErrorModal onClose={clearErrorHandler}>{error}</ErrorModal>}
+      <IngredientForm onSubmit={submitHandler} loading={isLoading} />
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHanlder} />
         {ingridientsList}
       </section>
-      {http.error && (
-        <ErrorModal onClose={clearErrorHandler}>{http.error}</ErrorModal>
-      )}
     </div>
   );
 }
