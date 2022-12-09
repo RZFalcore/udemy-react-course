@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useReducer, useCallback, useMemo } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
@@ -40,7 +40,7 @@ function Ingredients() {
     error: null,
   });
 
-  const submitHandler = (newIngredient) => {
+  const submitHandler = useCallback((newIngredient) => {
     httpDispatch("SEND");
     fetch(
       "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
@@ -52,16 +52,16 @@ function Ingredients() {
     )
       .then((res) => res.json())
       .then((data) => {
-        httpDispatch("RESPONSE");
-        ingredientsDispatch({
+        return ingredientsDispatch({
           type: "ADD",
           ingredient: { id: data.name, ...newIngredient },
         });
       })
       .catch((e) => httpDispatch("ERROR", { error: e.message }));
-  };
+    httpDispatch("RESPONSE");
+  }, []);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = useCallback((id) => {
     httpDispatch("SEND");
     fetch(
       `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
@@ -74,28 +74,27 @@ function Ingredients() {
         }
       })
       .catch((e) => httpDispatch("ERROR", { error: e.message }));
-  };
+  }, []);
 
   const filteredIngredientsHanlder = useCallback((filteredIngr) => {
     ingredientsDispatch({ type: "SET", ingredients: filteredIngr });
   }, []);
 
-  const clearErrorHandler = () => httpDispatch("CLEAR");
+  const clearErrorHandler = useCallback(() => httpDispatch("CLEAR"), []);
+
+  const ingridientsList = useMemo(() => {
+    return (
+      <IngidientList ingredients={ingredients} onRemoveItem={deleteHandler} />
+    );
+  }, [ingredients, deleteHandler]);
 
   return (
     <div className="App">
       <IngredientForm onSubmit={submitHandler} loading={http.isLoading} />
 
       <section>
-        <Search
-          onLoadIngredients={filteredIngredientsHanlder}
-          // setLoading={httpDispatch}
-        />
-        <IngidientList
-          ingredients={ingredients}
-          onRemoveItem={deleteHandler}
-          loading={http.isLoading}
-        />
+        <Search onLoadIngredients={filteredIngredientsHanlder} />
+        {ingridientsList}
       </section>
       {http.error && (
         <ErrorModal onClose={clearErrorHandler}>{http.error}</ErrorModal>

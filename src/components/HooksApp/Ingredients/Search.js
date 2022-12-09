@@ -12,7 +12,6 @@ const Search = React.memo(({ onLoadIngredients, setLoading }) => {
       if (filter === inputRef.current.value) {
         const querry =
           filter.length === 0 ? "" : `?orderBy="title"&equalTo="${filter}"`;
-        // setLoading("SEND");
         fetch(
           "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json" +
             querry
@@ -27,10 +26,9 @@ const Search = React.memo(({ onLoadIngredients, setLoading }) => {
                 amount: data[k].amount,
               });
             }
-            // setLoading("RESPONSE");
             onLoadIngredients(ingredientsList);
-          });
-        // .catch((e) => setLoading("ERROR", { error: e }));
+          })
+          .catch((e) => setLoading("ERROR", { error: e }));
       }
     }, 300);
     return () => clearTimeout(delay);
