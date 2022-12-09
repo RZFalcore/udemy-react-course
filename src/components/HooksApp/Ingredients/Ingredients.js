@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, useMemo } from "react";
+import React, { useReducer, useCallback, useMemo, useEffect } from "react";
 
 import IngidientList from "./IngredientList";
 import IngredientForm from "./IngredientForm";
@@ -21,36 +21,41 @@ const ingredientsReducer = (state, action) => {
 
 function Ingredients() {
   const [ingredients, ingredientsDispatch] = useReducer(ingredientsReducer, []);
-  const { isLoading, error, data, sendRequest } = useHttp();
+  const { isLoading, error, data, delId, identifier, sendRequest, clear } =
+    useHttp();
 
-  const submitHandler = useCallback((newIngredient) => {
-    // httpDispatch("SEND");
-    // fetch(
-    //   "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
-    //   {
-    //     method: "POST",
-    //     body: JSON.stringify(newIngredient),
-    //     headers: { "Content-Type": "application/json" },
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     return ingredientsDispatch({
-    //       type: "ADD",
-    //       ingredient: { id: data.name, ...newIngredient },
-    //     });
-    //   })
-    //   .catch((e) => httpDispatch("ERROR", { error: e.message }));
-    // httpDispatch("RESPONSE");
-  }, []);
+  useEffect(() => {
+    if (!isLoading && !error && identifier === "REMOVE_INGR")
+      ingredientsDispatch({ type: "DELETE", id: delId });
+    else if (!isLoading && !error && identifier === "ADD_INGR")
+      ingredientsDispatch({
+        type: "ADD",
+        ingredient: { id: data.name, ...delId },
+      });
+  }, [data, delId, identifier, isLoading, error]);
+
+  const submitHandler = useCallback(
+    (newIngredient) => {
+      sendRequest(
+        "https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients.json",
+        "POST",
+        JSON.stringify(newIngredient),
+        newIngredient,
+        "ADD_INGR"
+      );
+    },
+    [sendRequest]
+  );
 
   const deleteHandler = useCallback(
     (id) => {
       sendRequest(
         `https://ud-react-http-default-rtdb.europe-west1.firebasedatabase.app/ingridients/${id}.json`,
-        "DELETE"
+        "DELETE",
+        null,
+        id,
+        "REMOVE_INGR"
       );
-      // httpDispatch("SEND");
     },
     [sendRequest]
   );

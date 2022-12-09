@@ -1,13 +1,32 @@
 import { useReducer, useCallback } from "react";
 
+const initialState = {
+  isLoading: false,
+  error: null,
+  data: null,
+  delId: null,
+  identifier: null,
+};
+
 const httpReducer = (state, action) => {
   switch (action.type) {
     case "SEND":
-      return { isLoading: true, error: null, data: null };
+      return {
+        isLoading: true,
+        error: null,
+        data: null,
+        delId: null,
+        identifier: action.identifier,
+      };
     case "RESPONSE":
-      return { ...state, isLoading: false, data: action.resData };
+      return {
+        ...state,
+        isLoading: false,
+        data: action.resData,
+        delId: action.id,
+      };
     case "CLEAR":
-      return { ...state, error: null };
+      return initialState;
     case "ERROR":
       return { isLoading: false, error: action.error };
     default:
@@ -16,14 +35,11 @@ const httpReducer = (state, action) => {
 };
 
 const useHttp = () => {
-  const [http, httpDispatch] = useReducer(httpReducer, {
-    isLoading: false,
-    error: null,
-    data: null,
-  });
+  const [http, httpDispatch] = useReducer(httpReducer, initialState);
 
-  const sendRequest = useCallback((url, method, body) => {
-    httpDispatch("SEND");
+  const sendRequest = useCallback((url, method, body, id, identifier) => {
+    httpDispatch({ type: "SEND", identifier });
+
     fetch(url, {
       method: method,
       body: body,
@@ -31,11 +47,14 @@ const useHttp = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        httpDispatch("RESPONSE", resData);
+        httpDispatch({ type: "RESPONSE", resData, id });
       })
-      .catch((e) => httpDispatch("ERROR", { error: e.message }));
+      .catch((e) => httpDispatch({ type: "ERROR", error: e.message }));
   }, []);
-  return { ...http, sendRequest: sendRequest };
+
+  const clear = useCallback(() => httpDispatch({ type: "CLEAR" }), []);
+
+  return { ...http, sendRequest: sendRequest, clear: clear };
 };
 
 export default useHttp;
