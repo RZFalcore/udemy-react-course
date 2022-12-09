@@ -26,12 +26,13 @@ import React from "react";
 // import ReplaceReduxApp from './Pages/ReplaceRedux';
 // import TestingApp from "./Pages/TestingApp";
 import HooksApp from "./Pages/HooksApp";
+import AuthProvider from "./components/HooksApp/context/auth-context";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <HooksApp />
-    </div>
+    </AuthProvider>
   );
 }
 
