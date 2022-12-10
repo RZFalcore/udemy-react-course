@@ -25,14 +25,15 @@ import React from "react";
 // import AnimationsApp from "./Pages/AnimationsApp";
 // import ReplaceReduxApp from './Pages/ReplaceRedux';
 // import TestingApp from "./Pages/TestingApp";
-import HooksApp from "./Pages/HooksApp";
-import AuthProvider from "./components/HooksApp/context/auth-context";
+// ---------
+// import HooksApp from "./Pages/HooksApp";
+// import AuthProvider from "./components/HooksApp/context/auth-context";
+// ---------
+import SummaryApp from './Pages/SummaryApp';
 
 function App() {
   return (
-    <AuthProvider>
-      <HooksApp />
-    </AuthProvider>
+   <SummaryApp/>
   );
 }
 
