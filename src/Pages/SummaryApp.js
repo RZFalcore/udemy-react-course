@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import MainNavigation from "../components/Summary/components/layouts/MainNavigation";
 
 import Favorites from "../components/Summary/pages/Favorites";
 import Meetups from "../components/Summary/pages/Meetups";
@@ -10,6 +11,7 @@ import "./SummaryApp.css";
 const SummaryApp = () => {
   return (
     <div>
+      <MainNavigation />
       <Routes>
         <Route path="/" element={<Meetups />} />
         <Route path="/new-meetup" element={<NewMeetup />} />

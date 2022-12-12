@@ -1,0 +1,58 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    background-color: cadetblue;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 300px;
+    font-weight: 900;
+    text-align: center;
+    margin: auto 10px;
+    padding: 0;
+}
+
+.logo>a {
+    font-size: 32px;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+}
+
+.logo>a:hover {
+    color: rgb(122, 62, 178);
+
+}
+
+.list {
+    list-style-type: none;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem {
+    text-align: center;
+    margin-right: 20px;
+    width: 33%;
+}
+
+.listItem>a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}
+
+.listItem :hover {
+    color: rgb(122, 62, 178);
+}
