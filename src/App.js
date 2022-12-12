@@ -30,10 +30,13 @@ import React from "react";
 // import AuthProvider from "./components/HooksApp/context/auth-context";
 // ---------
 import SummaryApp from './Pages/SummaryApp';
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-   <SummaryApp/>
+    <BrowserRouter>
+      <SummaryApp />
+    </BrowserRouter>
   );
 }
 
