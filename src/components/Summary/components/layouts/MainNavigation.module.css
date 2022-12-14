@@ -23,7 +23,7 @@
 }
 
 .logo>a:hover {
-    color: rgb(122, 62, 178);
+    color: rgb(137, 229, 232);
 
 }
 
@@ -54,5 +54,5 @@
 }
 
 .listItem :hover {
-    color: rgb(122, 62, 178);
+    color: rgb(137, 229, 232);
 }

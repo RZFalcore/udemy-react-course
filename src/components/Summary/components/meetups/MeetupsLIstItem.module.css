@@ -33,8 +33,8 @@
 .actions button {
     font-size: inherit;
     cursor: pointer;
-    color: #77002e;
-    border: 1px solid #77002e;
+    color:cadetblue;
+    border: 1px solid cadetblue;
     background-color: transparent;
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
@@ -42,5 +42,6 @@
 
 .actions button:active,
 .actions button:hover {
-    background-color: #ffe2ed;
+    background-color: rgb(137, 229, 232);
+    color: white;
 }

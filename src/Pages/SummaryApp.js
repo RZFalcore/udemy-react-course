@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import MainNavigation from "../components/Summary/components/layouts/MainNavigation";
 
+import Layout from "../components/Summary/components/layouts/Layout";
 import Favorites from "../components/Summary/pages/Favorites";
 import Meetups from "../components/Summary/pages/Meetups";
 import NewMeetup from "../components/Summary/pages/NewMeetup";
@@ -10,14 +10,13 @@ import "./SummaryApp.css";
 
 const SummaryApp = () => {
   return (
-    <div>
-      <MainNavigation />
+    <Layout>
       <Routes>
         <Route path="/" element={<Meetups />} />
         <Route path="/new-meetup" element={<NewMeetup />} />
         <Route path="/favorites" element={<Favorites />} />
       </Routes>
-    </div>
+    </Layout>
   );
 };
 
