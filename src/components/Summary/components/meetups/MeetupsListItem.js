@@ -1,5 +1,5 @@
 import React from "react";
-import { styles } from "./MeetupsLIstItem.module.css";
+import styles from "./MeetupsLIstItem.module.css";
 
 const MeetupsListItem = ({ image, title, address, description }) => {
   return (
