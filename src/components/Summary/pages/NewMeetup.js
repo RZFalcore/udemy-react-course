@@ -1,9 +1,14 @@
 import React from "react";
+import NewMeetups from "../components/meetups/NewMeetups";
+
 const NewMeetup = () => {
   return (
-    <>
-      <h1>New meetup</h1>
-    </>
+    <section>
+      <h1 style={{ textTransform: "uppercase", textAlign: "center" }}>
+        New meetups
+      </h1>
+      <NewMeetups />
+    </section>
   );
 };
 
