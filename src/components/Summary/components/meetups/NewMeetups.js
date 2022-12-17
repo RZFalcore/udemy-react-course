@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Card from "../ui/Card";
 import styles from "./NewMeetups.module.css";
 
-const NewMeetups = () => {
+const NewMeetups = ({ onSendData }) => {
   const titleRef = useRef();
   const imageRef = useRef();
   const addressRef = useRef();
@@ -11,13 +11,19 @@ const NewMeetups = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const title = titleRef.current.value;
-    const image = imageRef.current.value;
-    const address = addressRef.current.value;
-    const description = descriptionRef.current.value;
+    let title = titleRef.current.value;
+    let image = imageRef.current.value;
+    let address = addressRef.current.value;
+    let description = descriptionRef.current.value;
+
     const formData = { title, image, address, description };
 
-    console.log(formData);
+    onSendData(formData);
+
+    title = "";
+    image = "";
+    address = "";
+    description = "";
   };
 
   return (
