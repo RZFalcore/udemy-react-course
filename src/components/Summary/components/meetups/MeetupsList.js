@@ -9,6 +9,7 @@ const MeetupsList = ({ meetups }) => {
       {meetups.map(({ id, image, title, address, description }) => (
         <MeetupsListItem
           key={id}
+          id={id}
           image={image}
           title={title}
           address={address}
