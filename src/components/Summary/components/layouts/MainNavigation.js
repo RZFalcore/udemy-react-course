@@ -28,7 +28,7 @@ const MainNavigation = () => {
           </li>
           <li className={listItem}>
             <Link to={"/favorites"}>
-              Favorites{" "}
+              Favorites
               <span className={badge}>{favoritesCtx.totalFavorites}</span>
             </Link>
           </li>
