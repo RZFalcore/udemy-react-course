@@ -56,3 +56,10 @@
 .listItem :hover {
     color: rgb(137, 229, 232);
 }
+.badge {
+    background-color: rgb(137, 229, 232);
+    color: white;
+    border-radius: 12px;
+    padding: 0 1rem;
+    margin-left: 0.5rem;
+}

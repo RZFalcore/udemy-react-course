@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import MeetupsList from "../components/meetups/MeetupsList";
+import FavoritesContext from "../store/favorites-context";
+
 const Favorites = () => {
+  const favoritesCts = useContext(FavoritesContext);
   return (
-    <>
-      <h1>Favorites page</h1>
-    </>
+    <section>
+      <h1>My favorites</h1>
+      {favoritesCts.totalFavorites ? (
+        <MeetupsList meetups={favoritesCts.favorites} />
+      ) : (
+        <p>No favorites meetups yet. Try to add some!</p>
+      )}
+    </section>
   );
 };
 

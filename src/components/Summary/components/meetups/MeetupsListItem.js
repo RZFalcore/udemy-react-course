@@ -9,11 +9,14 @@ const MeetupsListItem = ({ id, image, title, address, description }) => {
   const favoritesCtx = useContext(FavoritesContext);
 
   const meetupIsFavorite = favoritesCtx.isFavorite(id);
-
+  
   const toggleFavoriteHandler = () => {
-    if (meetupIsFavorite) favoritesCtx.removeFavorite(id);
-    if (!meetupIsFavorite)
+    console.log(meetupIsFavorite);
+    if (meetupIsFavorite) {
+      favoritesCtx.removeFavorite(id);
+    } else {
       favoritesCtx.addFavorite({ id, image, title, address, description });
+    }
   };
 
   return (
@@ -28,7 +31,9 @@ const MeetupsListItem = ({ id, image, title, address, description }) => {
           <p>{description}</p>
         </div>
         <div className={styles.actions}>
-          <button onClick={toggleFavoriteHandler}>To Favorites</button>
+          <button onClick={toggleFavoriteHandler}>
+            {meetupIsFavorite ? "Remove from favorites" : "To Favorites"}
+          </button>
         </div>
       </Card>
     </li>

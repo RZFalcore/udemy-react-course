@@ -12,14 +12,14 @@ export const FavoritesContextProvider = ({ children }) => {
   const [userFavorites, setUserFavorites] = useState([]);
 
   const addFavoriteHandler = (newEntry) =>
-    setUserFavorites((favorites) => favorites.concat(newEntry));
+    setUserFavorites((meetup) => meetup.concat(newEntry));
 
   const removeFavoriteHandler = (id) =>
     setUserFavorites((prevFavorites) =>
-      prevFavorites.filter((favorite) => favorite.id !== id)
+      prevFavorites.filter((meetup) => meetup.id !== id)
     );
   const isFavoriteHandler = (id) => {
-    userFavorites.some((favorite) => favorite.id === id);
+    userFavorites.some((meetup) => meetup.id === id);
   };
 
   const context = {
