@@ -12,7 +12,7 @@ export const FavoritesContextProvider = ({ children }) => {
   const [userFavorites, setUserFavorites] = useState([]);
 
   const addFavoriteHandler = (newEntry) =>
-    setUserFavorites((meetup) => meetup.concat(newEntry));
+    setUserFavorites((meetups) => [...meetups, newEntry]);
 
   const removeFavoriteHandler = (id) =>
     setUserFavorites((prevFavorites) =>
